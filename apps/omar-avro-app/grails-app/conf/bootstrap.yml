@@ -1,6 +1,6 @@
 spring:
   application:
-    name: o2-avro
+    name: omar-avro
   cloud:
     config:
       enabled: false
