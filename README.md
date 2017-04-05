@@ -9,16 +9,16 @@ This service takes an AVRO JSON payload or JSON record from an AVRO file as inpu
 * **Observation_Date** This is acquisition date of the image and we use the date field as a way to create a local destination directory for the field
 * **Image_Id** This is the Image Id and is used for the destination filename
 
-Git clone the omar-common repo.
+Git clone or git pull the omar-common repo.
 ```
   git clone https://github.com/ossimlabs/omar-common.git
 ```
 
-## Required environment variable
+### Required environment variable
 - OMAR_COMMON_PROPERTIES
 
-## Optional environment variables
-### required by Jenkins or a local Artifactory or a local Openshift
+### Optional environment variables
+#### required by Jenkins or a local Artifactory or a local Openshift
 
 - OPENSHIFT_USERNAME
 - OPENSHIFT_PASSWORD
@@ -28,16 +28,24 @@ Git clone the omar-common repo.
 ### Example:
 ```
   export OMAR_COMMON_PROPERTIES=~/omar-common/omar-common-properties.gradle
-
 ```
 
-## Install plugins in the following order before installing omar-avro
+Git clone or git pull the following repos.
+1. omar-core
+2. omar-hibernate
+3. oomar-ingest-metrics
 
-1. omar-core/plugins/omar-core-plugin
-2. omar-hibernate-spatial/plugins/omar-hibernate-spatial-plugin
-3. omar-ingest-metrics/plugins/omar-ingest-metrics-plugin
+### Install the following plugins in order before installing omar-avro-plugin
 
+1. omar-core-plugin
+2. omar-hibernate-spatial-plugin
+3. oomar-ingest-metrics-plugin
+
+### Example:
 ```
+cd omar-core/plugins/omar-core-plugin
  ./gradlew clean install
 
 ```
+
+### Install omar-avro-plugin before you build/install omar-avro-app
