@@ -43,9 +43,12 @@ Git clone or git pull the following repos.
 
 ### Example:
 ```
-cd omar-core/plugins/omar-core-plugin
+ cd omar-core/plugins/omar-core-plugin
  ./gradlew clean install
-
 ```
 
 ### Install omar-avro-plugin before you build/install omar-avro-app
+```
+ cd omar-avro/plugins/omar-avro-plugin
+ ./gradlew clean install
+```
