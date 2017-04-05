@@ -31,7 +31,7 @@ Git clone the omar-common repo.
 
 ```
 
-## Install plugins in the following order
+## Install plugins in the following order before installing avro
 
 1. omar-core
 2. omar-hibernate-spatial
