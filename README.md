@@ -25,7 +25,7 @@ Git clone or git pull the omar-common repo.
 - ARTIFACTORY_USER
 - ARTIFACTORY_PASSWORD
 
-### Example:
+Example:
 ```
   export OMAR_COMMON_PROPERTIES=~/omar-common/omar-common-properties.gradle
 ```
@@ -41,7 +41,7 @@ Git clone or git pull the following repos.
 2. omar-hibernate-spatial-plugin
 3. oomar-ingest-metrics-plugin
 
-### Example:
+Example:
 ```
  cd omar-core/plugins/omar-core-plugin
  ./gradlew clean install
