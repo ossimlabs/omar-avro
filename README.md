@@ -31,15 +31,11 @@ Git clone the omar-common repo.
 
 ```
 
-## Install plugins in the following order before installing avro
+## Install plugins in the following order before installing omar-avro
 
-1. omar-core
-2. omar-hibernate-spatial
-3. omar-ingest-metrics
-
-All other plugins can be installed in any order.
-
-Install plugins by going into the plugin's directory and run the command
+1. omar-core/plugins/omar-core-plugin
+2. omar-hibernate-spatial/plugins/omar-hibernate-spatial-plugin
+3. omar-ingest-metrics/plugins/omar-ingest-metrics-plugin
 
 ```
  ./gradlew clean install
