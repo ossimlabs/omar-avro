@@ -2,6 +2,22 @@ buildscript {
   ext {
     grailsVersion = project.grailsVersion
     baseImage = "omar-base"
+     dockerStatementsOverride = {
+       [
+          "FROM ${project.dockerNamespaceUrl}${project.ext.baseImage}:${project.dockerAppTag}",
+          "RUN yum -y install wget && useradd omar&&yum clean all",
+          "MAINTAINER RadiantBlue Technologies radiantblue.com",
+          """LABEL com.radiantblue.version="" """,
+          "VOLUME /dev/random /home /Users",
+          "ENV SPRING_CLOUD_CONFIG_ENABLED true",
+          "ENV SPRING_CLOUD_DISCOVERY_ENABLED true",
+          "EXPOSE 8080",
+          "COPY ${project.name}-${buildVersion}-${buildVersionTag}.jar /home/omar",
+          "USER omar",
+          "WORKDIR /home/omar",
+          "CMD java -server -Xms256m -Xmx1024m -Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom -XX:+CMSClassUnloadingEnabled -XX:+UseGCOverheadLimit -jar ${project.name}-${buildVersion}-${buildVersionTag}.jar"
+       ]
+     }
   }
   if(System.env.OMAR_COMMON_PROPERTIES)
   {
