@@ -8,6 +8,9 @@ services:
       - /dev/urandom:/dev/random
       # - /home:/home
       # - /Users:/Users
+    environment:
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
     ports:
       - "8080:8080"
 networks:
