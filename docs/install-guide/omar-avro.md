@@ -2,7 +2,7 @@
 
 ## Dockerfile
 ```
-FROM omar-base
+FROM omar-ossim-base
 EXPOSE 8080
 RUN mkdir /usr/share/omar
 COPY omar-mensa-app-1.0.0-SNAPSHOT.jar /usr/share/omar
