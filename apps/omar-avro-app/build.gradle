@@ -2,22 +2,6 @@ buildscript {
   ext {
     grailsVersion = project.grailsVersion
     baseImage = "omar-base"
-     dockerStatementsOverride = {
-       [
-          "FROM ${project.dockerNamespaceUrl}${project.ext.baseImage}:${project.dockerAppTag}",
-          "RUN yum -y install wget && useradd omar&&yum clean all",
-          "MAINTAINER RadiantBlue Technologies radiantblue.com",
-          """LABEL com.radiantblue.version="" """,
-          "VOLUME /dev/random /home /Users",
-          "ENV SPRING_CLOUD_CONFIG_ENABLED true",
-          "ENV SPRING_CLOUD_DISCOVERY_ENABLED true",
-          "EXPOSE 8080",
-          "COPY ${project.name}-${buildVersion}-${buildVersionTag}.jar /home/omar",
-          "USER omar",
-          "WORKDIR /home/omar",
-          "CMD java -server -Xms256m -Xmx1024m -Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom -XX:+CMSClassUnloadingEnabled -XX:+UseGCOverheadLimit -jar ${project.name}-${buildVersion}-${buildVersionTag}.jar"
-       ]
-     }
   }
   if(System.env.OMAR_COMMON_PROPERTIES)
   {
@@ -36,14 +20,14 @@ buildscript {
 }
 
 plugins {
-    id "com.github.ben-manes.versions" version "0.13.0"
+  id "com.github.ben-manes.versions" version "0.13.0"
 }
 
-apply plugin: "eclipse"
-apply plugin: "idea"
-apply plugin: "org.grails.grails-web"
-apply plugin: "org.grails.grails-gsp"
-apply plugin: "asset-pipeline"
+apply plugin:"eclipse"
+apply plugin:"idea"
+apply plugin:"org.grails.grails-web"
+apply plugin:"org.grails.grails-gsp"
+apply plugin:"asset-pipeline"
 
 apply plugin: "java"
 apply plugin: "maven-publish"
@@ -54,14 +38,6 @@ group "io.ossim.omar.apps"
 ext {
   grailsVersion = project.grailsVersion
   gradleWrapperVersion = project.gradleWrapperVersion
-}
-
-assets {
-  minifyJs = true
-  minifyCss = true
-  includes = ["fonts/*"]
-  excludes = ["**/*-debug.js", "**/*-deps.js", "**/*.gz", "**/*.txt", "**/*.less", "**/*.html", "**/i18n/**", "**/",
-      ".grunt/**", "**/locale/**", "webjars/jquery/2.1.4/src/intro.js", "webjars/jquery/2.1.4/src/outro.js"]
 }
 
 repositories {
@@ -107,6 +83,14 @@ dependencies {
 
   compile "org.springframework.cloud:spring-cloud-starter-config"
   compile "org.springframework.cloud:spring-cloud-starter-eureka"
+}
+
+assets {
+  minifyJs = true
+  minifyCss = true
+  includes = ["fonts/*"]
+  excludes = ["**/*-debug.js", "**/*-deps.js", "**/*.gz", "**/*.txt", "**/*.less", "**/*.html", "**/i18n/**", "**/",
+      ".grunt/**", "**/locale/**", "webjars/jquery/2.1.4/src/intro.js", "webjars/jquery/2.1.4/src/outro.js"]
 }
 
 publishing {
