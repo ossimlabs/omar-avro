@@ -68,6 +68,7 @@ class AvroMessageIndexJob {
                     {
                       if(!new File(fullPathLocation.toString()).exists())
                       {
+                        log.info "Try ${x}...File '${fullPathLocation}' doesn't doesn't exist yet, delaying for ${config.stagingDelay} milli seconds"
                         sleep( config.stagingDelay )
                       }
                     }
