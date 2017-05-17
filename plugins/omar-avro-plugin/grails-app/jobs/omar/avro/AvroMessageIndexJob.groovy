@@ -15,7 +15,7 @@ class AvroMessageIndexJob {
       def messageRecord
       Boolean errorFlag = false
       def messageRecordsToRetry = []
-      def config = OmarAvroUtils.avroConfig
+//      def config = OmarAvroUtils.avroConfig
       while(messageRecord = avroService.nextMessage())
       {
         String messageId = messageRecord.messageId
@@ -63,16 +63,16 @@ class AvroMessageIndexJob {
                     HttpUtils.downloadURIShell(commandString, fullPathLocation.toString(), sourceURI)
                   }
                   log.info "DOWNLOADED: ${sourceURI} to ${fullPathLocation}"
-                  if(config.stagingDelay){                  
-                    for(int x=0;x<3;++x)
-                    {
-                      if(!new File(fullPathLocation.toString()).exists())
-                      {
-                        log.info "Try ${x}...File '${fullPathLocation}' doesn't doesn't exist yet, delaying for ${config.stagingDelay} milli seconds"
-                        sleep( config.stagingDelay )
-                      }
-                    }
-                  }
+//                  if(config.stagingDelay){                  
+//                    for(int x=0;x<3;++x)
+//                    {
+//                      if(!new File(fullPathLocation.toString()).exists())
+//                      {
+//                        log.info "Try ${x}...File '${fullPathLocation}' doesn't doesn't exist yet, delaying for ${config.stagingDelay} milli seconds"
+//                        sleep( config.stagingDelay )
+//                      }
+//                    }
+//                  }
                   avroService.updatePayloadStatus(messageId, ProcessStatus.FINISHED, "DOWNLOADED: ${sourceURI} to ${fullPathLocation}")
                 }
                 else
