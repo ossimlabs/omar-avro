@@ -77,13 +77,13 @@ class HttpUtils
 
       try{
          def http = new HTTPBuilder( host )
-         def postBody = params
-         postBody = postBody + tempUrl.params
+         def queryParams = params
+         queryParams = queryParams + tempUrl.params
          http.handler.failure = {resp->
             result.status = resp.status
             result.message = resp.statusLine
          }
-         http.post( path: path, body: postBody,
+         http.post( path: path, query:queryParams,//body: postBody,
                  requestContentType: URLENC )
                  { resp ->
                     result.message = resp.statusLine
