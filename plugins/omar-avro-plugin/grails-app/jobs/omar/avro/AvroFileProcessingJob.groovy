@@ -49,7 +49,7 @@ class AvroFileProcessingJob {
                else
                {
                   log.error result?.status
-                  log.error "Post failed to ${url} for  ${fileRecord.filename} with post field ${field}"
+                  log.error "${result?.message} Post failed to ${url} for  ${fileRecord.filename} with post field ${field}"
                   avroService.updateFileStatus(fileRecord.processId, ProcessStatus.FAILED, "Failed to post file to stager")
                   ingestMetricsService.setStatus(fileRecord.processId, ProcessStatus.FAILED.toString(), "Failed to post file to stager")
                }
