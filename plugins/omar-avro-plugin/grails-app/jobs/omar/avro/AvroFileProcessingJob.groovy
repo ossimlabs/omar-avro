@@ -37,7 +37,7 @@ class AvroFileProcessingJob {
                Integer nAttempts = config.nAttempts?:3
                Integer attemptDelay = config.attemptDelay?:5000
                Integer attempt = 1
-               while(!stopAttempts)
+               while(!stopAttempts&&(attempt <= nAttempts))
                {
                   def result   = HttpUtils.postMessage(url, params)
                   log.info "Message posted"
@@ -57,7 +57,7 @@ class AvroFileProcessingJob {
                   }
                   else
                   {
-                     if(nAttemps < attempt)
+                     if(nAttempts < attempt)
                      {
                         log.info "Attempt ${attempt} failed ... Trying again"
                         ++attempt
