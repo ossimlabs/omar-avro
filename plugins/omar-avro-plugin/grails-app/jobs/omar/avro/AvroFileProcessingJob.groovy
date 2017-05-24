@@ -61,6 +61,7 @@ class AvroFileProcessingJob {
                      {
                         log.info "Attempt ${attempt} failed ... Trying again"
                         ++attempt
+                        sleep(attemptDelay)
                      }
                      else
                      {
