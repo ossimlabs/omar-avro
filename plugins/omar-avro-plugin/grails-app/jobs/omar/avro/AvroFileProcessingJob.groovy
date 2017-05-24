@@ -36,9 +36,9 @@ class AvroFileProcessingJob {
                Boolean stopAttempts = false
                Integer nAttempts = config.nAttempts?:3
                Integer attemptDelay = config.attemptDelay?:5000
-               Integer attempt = 1
+               Integer attempt = 0
 
-               while(!stopAttempts&&(attempt <= nAttempts))
+               while(!stopAttempts&&(attempt < nAttempts))
                {
                   def result   = HttpUtils.postMessage(url, params)
                   log.info "Message posted"
@@ -58,15 +58,14 @@ class AvroFileProcessingJob {
                   }
                   else
                   {
-                     if(nAttempts < attempt)
+                     ++attempt
+                     if(attempt < nAttempts)
                      {
                         log.info "Attempt ${attempt} failed ... Trying again"
-                        ++attempt
                         sleep(attemptDelay)
                      }
                      else
                      {
-                        stopAttempts = true
                         log.error result?.status
                         log.error "${result?.message} Post failed to ${url} for ${fileRecord.filename} with post field ${field}"
                         avroService.updateFileStatus(fileRecord.processId, ProcessStatus.FAILED, "Failed to post file to stager")
