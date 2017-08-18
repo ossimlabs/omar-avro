@@ -27,68 +27,6 @@ Ref: [omar-ossim-base](../../../omar-ossim-base/docs/install-guide/omar-ossim-ba
 
 ##Configuration
 
-```
-serverName: "localhost"
-serverProtocol: "http"
-
-omarDb:
-  host: 
-  port: 5432
-  name: omardb-prod
-  url: jdbc:postgresql://${omarDb.host}:${omarDb.port}/${omarDb.name}
-  driver: org.postgresql.Driver
-  dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
-  username: 
-  password:
-
-server:
-  contextPath:
-  port: 8080
-
-
-environments:
-  production:
-    dataSource:
-      pooled: true
-      jmxExport: true
-      driverClassName: ${omarDb.driver}
-      dialect:  ${omarDb.dialect}
-      url:      ${omarDb.url}
-      username: ${omarDb.username}
-      password: ${omarDb.password}
-
-omar:
-  avro:
-    sourceUriField: "uRL"
-    dateField: "observationDateTime"
-    dateFieldFormat: ""
-    imageIdField: "imageId"
-    jsonSubFieldPath: "Message"
-    download:
-      directory: "/data/s3"
-      command: "wget --no-check-certificate -O <destination> <source>"
-    destination:
-      type: "post"
-      post:
-        addRasterEndPoint: http://omar-stager-app:8080/omar-stager/dataManager/addRaster
-        addRasterEndPointField: "filename"
-        addRasterEndPointParams:
-          background: "true"
-          buildHistograms: "true"
-          buildOverviews: "true"
-          overviewCompressionType: "NONE"
-          overviewType: "ossim_tiff_box"
-          filename: ""
-    stagingDelay: 1000
-    nAttempts: 3
-    attemptDelay: 5000
-
----
-grails:
-  serverURL:${serverProtocol}://${serverName}${server.contextPath}
-
-```
-
 * **sourceUriField** Is the source URI field name in the JSON Avro record.
 * **dateField (optional)** Is the date field in the JSON Avro Record.  This field is optional and is used as a way to encode the **directory** for storing the image.  If this is not given then the directory suffix will be the path of the **sourceUriField**
 * **dateFieldFormat** Is the format of the date field.  If you leave this blank "" then it will default to parsing an ISO8601 date.  Typically left blank.
