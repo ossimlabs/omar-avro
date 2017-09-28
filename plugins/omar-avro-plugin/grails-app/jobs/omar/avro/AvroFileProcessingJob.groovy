@@ -5,7 +5,7 @@ import omar.core.ProcessStatus
 class AvroFileProcessingJob {
    def avroService
    def ingestMetricsService
-   def concurrent = false
+   def concurrent = true
    static triggers = {
       simple repeatInterval: 5000l // execute job once in 5 seconds
    }
@@ -27,7 +27,7 @@ class AvroFileProcessingJob {
                ingestMetricsService.endIngest(fileRecord.processId)
                break
             case "post":
-               //sleep( config.stagingDelay ) // ensure that the NFS has enough time to flush bits 
+               //sleep( config.stagingDelay ) // ensure that the NFS has enough time to flush bits
                String url   = config.destination.post.addRasterEndPoint
                String field = config.destination.post.addRasterEndPointField
                HashMap params = config.destination.post.addRasterEndPointParams as HashMap
