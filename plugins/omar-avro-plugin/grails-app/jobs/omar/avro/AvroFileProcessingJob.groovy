@@ -5,6 +5,7 @@ import omar.core.ProcessStatus
 class AvroFileProcessingJob {
    def avroService
    def ingestMetricsService
+   def concurrent = false
    static triggers = {
       simple repeatInterval: 5000l // execute job once in 5 seconds
    }
