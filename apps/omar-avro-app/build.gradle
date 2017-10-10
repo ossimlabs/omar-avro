@@ -61,6 +61,7 @@ dependencyManagement {
 grails {
   plugins {
     compile project(':omar-avro-plugin')
+    compile project(':omar-core-plugin')
   }
 }
 dependencies {
