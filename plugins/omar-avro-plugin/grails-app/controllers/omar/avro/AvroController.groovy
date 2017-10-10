@@ -1,8 +1,8 @@
 package omar.avro
 import omar.core.BindUtil
 import grails.converters.JSON
-import com.github.rahulsom.swaggydoc.*
-import com.wordnik.swagger.annotations.*
+
+import io.swagger.annotations.*
 
 @Api(value = "Avro",
      description = "API operations for AVRO Payload manipulation",
@@ -21,9 +21,9 @@ class AvroController {
 
    def index() { render "" }
 
-   @ApiOperation(value = "Add a file", 
-                 consumes= 'application/json', 
-                 produces='application/json', 
+   @ApiOperation(value = "Add a file",
+                 consumes= 'application/json',
+                 produces='application/json',
                  httpMethod="POST",
                             notes = """
     Calling this URL endpoint <b>addFile</b> allows one to add the file to the background job for posting to the
@@ -36,13 +36,13 @@ class AvroController {
         <li>
             <b>filename</b><p/>
             This is the local filename under the directory tree that is the result
-            of the Avro Message downloaded from a reference URI.  
+            of the Avro Message downloaded from a reference URI.
         </li>
         <br>
     </ul>
     """)
    @ApiImplicitParams([
-           @ApiImplicitParam(name = 
+           @ApiImplicitParam(name =
             'filename', value = 'File to have posted and indexed', required=true, paramType = 'query', dataType = 'string'),
    ])
    def addFile()
@@ -61,9 +61,9 @@ class AvroController {
       render contentType: "application/json", text: result as JSON
 
    }
-   @ApiOperation(value = "List files", 
-                 consumes= 'application/json', 
-                 produces= 'application/json', 
+   @ApiOperation(value = "List files",
+                 consumes= 'application/json',
+                 produces= 'application/json',
                  httpMethod="GET",
                  notes = """
     The service api <b>listFiles</b> supports pagination and will list the current
@@ -153,9 +153,9 @@ class AvroController {
       render contentType: "application/json", text: result as JSON
    }
 
-   @ApiOperation(value = "List Messages", 
+   @ApiOperation(value = "List Messages",
                  consumes= 'application/json',
-                 produces='application/json', 
+                 produces='application/json',
                  httpMethod="GET",
                  notes = """
     The service api <b>listMessages</b> supports pagination and will list the current
