@@ -5,6 +5,7 @@ import omar.core.ProcessStatus
 class AvroMessageIndexJob {
    def avroService
   def ingestMetricsService
+  def concurrent = false
 
     static triggers = {
       simple repeatInterval: 5000l // execute job once in 5 seconds
@@ -63,7 +64,7 @@ class AvroMessageIndexJob {
                     HttpUtils.downloadURIShell(commandString, fullPathLocation.toString(), sourceURI)
                   }
                   log.info "DOWNLOADED: ${sourceURI} to ${fullPathLocation}"
-//                  if(config.stagingDelay){                  
+//                  if(config.stagingDelay){
 //                    for(int x=0;x<3;++x)
 //                    {
 //                      if(!new File(fullPathLocation.toString()).exists())
@@ -82,14 +83,14 @@ class AvroMessageIndexJob {
                 }
                 ingestMetricsService.endCopy(messageId)
                 avroService.addFile(new IndexFileCommand(filename:fullPathLocation))
-                
+
                 messageRecord = null
               }
               catch(e) {
                 log.error "Unable to Download: ${sourceURI} to ${fullPathLocation}\nWith error: ${e}"
                 if(fullPathLocation?.exists())
                 {
-                  fullPathLocation?.delete()                  
+                  fullPathLocation?.delete()
                 }
                 avroService.updatePayloadStatus(messageId, ProcessStatus.FAILED, "Unable to Download: ${sourceURI} to ${fullPathLocation} With error: ${e}")
                 messageRecord = null
