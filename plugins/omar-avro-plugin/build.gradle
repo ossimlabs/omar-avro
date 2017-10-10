@@ -44,6 +44,8 @@ repositories {
   maven { url "${ossimMavenProxy}" }
   mavenCentral()
   maven { url "https://repo.grails.org/grails/core" }
+  maven { url "https://dl.bintray.com/ajay-kumar/plugins" }    
+
 }
 
 // dependencyManagement {
