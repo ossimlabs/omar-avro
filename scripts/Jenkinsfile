@@ -44,7 +44,7 @@ node(""){
 
     try {
       stage('SonarQube analysis') {
-          withSonarQubeEnv('sonar_cloud') {
+          withSonarQubeEnv('sonarqube') {
               // requires SonarQube Scanner for Gradle 2.1+
               // It's important to add --info because of SONARJNKNS-281
               sh """
