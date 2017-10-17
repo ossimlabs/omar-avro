@@ -1,8 +1,8 @@
 package omar.avro
 import omar.core.BindUtil
 import grails.converters.JSON
-import com.github.rahulsom.swaggydoc.*
-import com.wordnik.swagger.annotations.*
+
+import io.swagger.annotations.*
 
 @Api(value = "Avro",
      description = "API operations for AVRO Payload manipulation",
@@ -21,28 +21,20 @@ class AvroController {
 
    def index() { render "" }
 
-   @ApiOperation(value = "Add a file", 
-                 consumes= 'application/json', 
-                 produces='application/json', 
+   @ApiOperation(value = "Add a file",
+                 consumes= 'application/json',
+                 produces='application/json',
                  httpMethod="POST",
                             notes = """
-    Calling this URL endpoint <b>addFile</b> allows one to add the file to the background job for posting to the
-    staging or indexing service.  If the file has previously <b>FAILED</b> it will be updated back to
-    a ready state and tried again.
-    <br><br>
-    <H2>Parameter List</H2>
-    <br><br>
-    <ul>
-        <li>
-            <b>filename</b><p/>
-            This is the local filename under the directory tree that is the result
-            of the Avro Message downloaded from a reference URI.  
-        </li>
-        <br>
-    </ul>
-    """)
+Calling this URL endpoint **addFile** allows one to add the file to the background job for posting to the staging or indexing service. If the file has previously **FAILED** it will be updated back to a ready state and tried again.  
+
+## Parameter List
+
+*   **filename**
+
+    This is the local filename under the directory tree that is the result of the Avro Message downloaded from a reference URI.    """)
    @ApiImplicitParams([
-           @ApiImplicitParam(name = 
+           @ApiImplicitParam(name =
             'filename', value = 'File to have posted and indexed', required=true, paramType = 'query', dataType = 'string'),
    ])
    def addFile()
@@ -61,32 +53,22 @@ class AvroController {
       render contentType: "application/json", text: result as JSON
 
    }
-   @ApiOperation(value = "List files", 
-                 consumes= 'application/json', 
-                 produces= 'application/json', 
+   @ApiOperation(value = "List files",
+                 consumes= 'application/json',
+                 produces= 'application/json',
                  httpMethod="GET",
                  notes = """
-    The service api <b>listFiles</b> supports pagination and will list the current
-    local files being processed.  It will return the processing status of the file if
-    its in the READY, RUNNING, PAUSED, CANCELED, FINISHED, FAILED state.
-    <br><br>
-    <H2>Parameter List</H2>
-    <br><br>
-    <ul>
-        <li>
-            <b>offset</b><p/>
-            This field is used in pagination and allows one to page the requests.  The offset
-            is the record offset for the next <b>limit</b> number of items
-        </li>
-        <br>
-        <li>
-            <b>limit</b><p/>
-            This parameter is used in pagination to define a limit on the number of items
-            returned
-        </li>
-        <br>
-    <ul>
-    """)
+The service api **listFiles** supports pagination and will list the current local files being processed. It will return the processing status of the file if its in the READY, RUNNING, PAUSED, CANCELED, FINISHED, FAILED state.  
+
+## Parameter List
+
+*   **offset**
+
+    This field is used in pagination and allows one to page the requests. The offset is the record offset for the next **limit** number of items
+
+*   **limit**
+
+    This parameter is used in pagination to define a limit on the number of items returned    """)
    @ApiImplicitParams([
            @ApiImplicitParam(name = 'offset', value = 'Process Id', required=false, paramType = 'query', dataType = 'integer'),
            @ApiImplicitParam(name = 'limit', value = 'Process status', defaultValue = '', paramType = 'query', dataType = 'integer'),
@@ -153,32 +135,22 @@ class AvroController {
       render contentType: "application/json", text: result as JSON
    }
 
-   @ApiOperation(value = "List Messages", 
+   @ApiOperation(value = "List Messages",
                  consumes= 'application/json',
-                 produces='application/json', 
+                 produces='application/json',
                  httpMethod="GET",
                  notes = """
-    The service api <b>listMessages</b> supports pagination and will list the current
-    messages being processed.  It returns the messageID, payload and the date the message
-    was created
-    <br><br>
-    <H2>Parameter List</H2>
-    <br><br>
-    <ul>
-        <li>
-            <b>offset</b><p/>
-            This field is used in pagination and allows one to page the requests.  The offset
-            is the record offset for the next <b>limit</b> number of items
-        </li>
-        <br>
-        <li>
-            <b>limit</b><p/>
-            This parameter is used in pagination to define a limit on the number of items
-            returned
-        </li>
-        <br>
-    <ul>
-    """)
+The service api **listMessages** supports pagination and will list the current messages being processed. It returns the messageID, payload and the date the message was created  
+
+## Parameter List
+
+*   **offset**
+
+    This field is used in pagination and allows one to page the requests. The offset is the record offset for the next **limit** number of items
+
+*   **limit**
+
+    This parameter is used in pagination to define a limit on the number of items returned    """)
    @ApiImplicitParams([
            @ApiImplicitParam(name = 'offset', value = 'Process Id', required=false, paramType = 'query', dataType = 'integer'),
            @ApiImplicitParam(name = 'limit', value = 'Process status', defaultValue = '', paramType = 'query', dataType = 'integer'),
