@@ -170,3 +170,8 @@ omar:
           overviewType: "ossim_tiff_box"
           filename: ""
     stagingDelay: 5000
+
+swagger:
+  schemes:
+    - HTTPS
+    - HTTP
