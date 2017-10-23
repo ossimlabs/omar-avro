@@ -1,6 +1,8 @@
 package omar.avro
 import groovy.json.JsonSlurper
 import omar.core.ProcessStatus
+import groovy.json.JsonBuilder
+
 
 class AvroMessageIndexJob {
    def avroService
