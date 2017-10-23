@@ -390,6 +390,11 @@ class AvroService {
                       message:"",
                       data:[],
                      ]
+
+    def startTime
+    def endTime
+    def procTime
+
     try{
       String messageId
       File fullPathLocation = getFullPathFromMessage(cmd.message)
@@ -399,6 +404,11 @@ class AvroService {
         messageId = fullPathLocation.toString()
         ingestMetricsService.startIngest(messageId, "")
         def avroPayload = AvroPayload.findByMessageId(messageId)
+
+        startTime = System.currentTimeMillis()
+        log.info "starting ingest for the following file: " + messageId
+        log.info " at time " + startTime
+
         if(!avroPayload)
         {
           if(!isProcessingFile(messageId))
@@ -457,6 +467,8 @@ class AvroService {
                               messageId:avroPayload.messageId,
                               message:avroPayload.message,
                       ]
+
+              // do database query to get other data with this file if available
 
               // log message with id file path
             }

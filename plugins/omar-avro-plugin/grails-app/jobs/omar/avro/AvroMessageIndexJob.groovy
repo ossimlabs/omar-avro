@@ -15,6 +15,11 @@ class AvroMessageIndexJob {
       log.trace "Entered........."
       def messageRecord
       Boolean errorFlag = false
+      def starttime
+      def endtime
+      def procTime
+      def ingestdate
+      def avro_logs
       def messageRecordsToRetry = []
 //      def config = OmarAvroUtils.avroConfig
       while(messageRecord = avroService.nextMessage())
@@ -23,6 +28,11 @@ class AvroMessageIndexJob {
         ingestMetricsService.startCopy(messageId)
 
         log.info "Processing Message with ID: ${messageRecord.messageId}"
+        ingestdate = new Date().format("YYYY-MM-DD HH:mm:ss.Ms")
+
+        log.info "Ingested an image at time: " + ingestdate
+        starttime = System.currentTimeMillis()
+
         try {
           def jsonObj
           try{
@@ -104,6 +114,15 @@ class AvroMessageIndexJob {
               ingestMetricsService.setStatus(messageId, ProcessStatus.FAILED.toString(),"Unable to create directory '${testPath}'.".toString())
               messageRecord = null
             }
+
+            endtime = System.currentTimeMillis()
+            procTime = endtime - starttime
+            log.info "time for ingest: " + procTime
+
+            avro_logs = new JsonBuilder(ingestdate: ingestdate, procTime: procTime, inboxuri: fullPathLocation.toString())
+
+            log.info avro_logs.toString()
+
           }
           else
           {
