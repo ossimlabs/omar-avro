@@ -394,6 +394,7 @@ class AvroService {
     def startTime
     def endTime
     def procTime
+    def ingestdate
 
     try{
       String messageId
@@ -406,8 +407,9 @@ class AvroService {
         def avroPayload = AvroPayload.findByMessageId(messageId)
 
         startTime = System.currentTimeMillis()
-        log.info "starting ingest for the following file: " + messageId
-        log.info " at time " + startTime
+
+        ingestdate = new Date().format("YYYY-MM-DD HH:mm:ss.Ms")
+        log.info "starting ingest for the following file: " + messageId + " at time " + ingestdate
 
         if(!avroPayload)
         {
