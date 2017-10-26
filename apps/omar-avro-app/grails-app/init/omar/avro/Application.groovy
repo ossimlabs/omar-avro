@@ -1,4 +1,4 @@
-package avro.app
+package omar.avro
 
 import grails.boot.GrailsApp
 import grails.boot.config.GrailsAutoConfiguration
