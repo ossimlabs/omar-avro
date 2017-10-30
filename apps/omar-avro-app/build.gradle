@@ -97,6 +97,8 @@ dependencies {
   // testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.52.0"
   // testRuntime "net.sourceforge.htmlunit:htmlunit:2.23"
 
+  compile "de.codecentric:spring-boot-admin-starter-client:1.5.4"
+
   compile "org.springframework.cloud:spring-cloud-starter-config"
   compile "org.springframework.cloud:spring-cloud-starter-eureka"
 
