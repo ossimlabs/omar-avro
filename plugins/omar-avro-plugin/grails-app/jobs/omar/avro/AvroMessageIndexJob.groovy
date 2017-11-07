@@ -36,7 +36,9 @@ class AvroMessageIndexJob {
         starttime = System.currentTimeMillis()
 
         try {
+
           def jsonObj
+          
           try{
             jsonObj = avroService.convertMessageToJsonWithSubField(messageRecord.message)
 
@@ -45,28 +47,37 @@ class AvroMessageIndexJob {
           }
           catch(e)
           {
+          
             avroService.updatePayloadStatus(messageId, ProcessStatus.FAILED, "Unable to parse message.  Not a valid JSON format")
             log.error "Bad Json format.  Message will be ignored!"
+          
           }
+          
           String sourceURI = jsonObj?."${OmarAvroUtils.avroConfig.sourceUriField}"?:""
           if(sourceURI)
           {
+          
             String prefixPath = "${OmarAvroUtils.avroConfig.download.directory}"
             File fullPathLocation = avroService.getFullPathFromMessage(messageRecord.message)
             File testPath = fullPathLocation.parentFile
             HashMap tryToCreateDirectoryConfig = [
                     numberOfAttempts:OmarAvroUtils.avroConfig.createDirectoryRetry.toInteger(),
                     sleepInMillis: OmarAvroUtils.avroConfig.createDirectoryRetryWaitInMillis.toInteger()
-            ]
+                    ]
 
             if(AvroMessageUtils.tryToCreateDirectory(testPath, tryToCreateDirectoryConfig))
             {
-              try{
+            
+              try
+              {
+            
                 if(!fullPathLocation.exists())
                 {
+              
                   log.info "DOWNLOADING: ${sourceURI} to ${fullPathLocation}"
                   String commandString = OmarAvroUtils.avroConfig.download?.command
                   //println "COMMAND STRING === ${commandString}"
+              
                   if(!commandString)
                   {
                     HttpUtils.downloadURI(fullPathLocation.toString(), sourceURI)
@@ -75,6 +86,7 @@ class AvroMessageIndexJob {
                   {
                     HttpUtils.downloadURIShell(commandString, fullPathLocation.toString(), sourceURI)
                   }
+              
                   log.info "DOWNLOADED: ${sourceURI} to ${fullPathLocation}"
 //                  if(config.stagingDelay){
 //                    for(int x=0;x<3;++x)
@@ -87,18 +99,32 @@ class AvroMessageIndexJob {
 //                    }
 //                  }
                   avroService.updatePayloadStatus(messageId, ProcessStatus.FINISHED, "DOWNLOADED: ${sourceURI} to ${fullPathLocation}")
+              
                 }
                 else
                 {
+              
                   log.info "${fullPathLocation} already exists and will not be re-downloaded"
                   avroService.updatePayloadStatus(messageId, ProcessStatus.FINISHED, "Already exists and will not be downloaded")
+              
                 }
+              
                 ingestMetricsService.endCopy(messageId)
                 avroService.addFile(new IndexFileCommand(filename:fullPathLocation))
 
+                /* -- Dylan Thomas
+                 * Create avro-metadata here
+                 * Need to find imageID from jsonObj. Also save jsonObj.
+                 * ... going to break everything.
+                 */
+                String addMetadataURL = "${OmarAvroUtils.avroConfig.metadata.addMetadataEndPoint}/${messageRecord.message}"
+                
+
                 messageRecord = null
+              
               }
-              catch(e) {
+              catch(e)
+              {
                 log.error "Unable to Download: ${sourceURI} to ${fullPathLocation}\nWith error: ${e}"
                 if(fullPathLocation?.exists())
                 {
