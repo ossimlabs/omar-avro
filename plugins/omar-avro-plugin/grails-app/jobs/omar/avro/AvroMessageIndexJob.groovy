@@ -117,8 +117,8 @@ class AvroMessageIndexJob {
                  * Need to find imageID from jsonObj. Also save jsonObj.
                  * ... going to break everything.
                  */
-                String addMetadataURL = "${OmarAvroUtils.avroConfig.metadata.addMetadataEndPoint}/${messageRecord.message}"
-                
+                def addMetadataURL = "${OmarAvroUtils.avroConfig.metadata.addMetadataEndPoint}/${messageRecord.message}"
+                HttpUtils.getRequestUrl(addMetadataURL)
 
                 messageRecord = null
               

@@ -171,7 +171,7 @@ omar:
           filename: ""
     stagingDelay: 5000
     metadata:
-      addMetadataEndPoint: "http://http://omar-avro-metadata:8080/omar-avro-metadata/avroMetadata/add"
+      addMetadataEndPoint: "http://omar-avro-metadata:8080/omar-avro-metadata/avroMetadata/add"
     
 
 swagger:
