@@ -118,7 +118,7 @@ class AvroMessageIndexJob {
                  * ... going to break everything.
                  */
                 def addMetadataURL = "${OmarAvroUtils.avroConfig.metadata.addMetadataEndPoint}"
-                HttpUtils.postMessage(addMetadataURL, messageRecord.message)              
+                HttpUtils.postToAvroMetadata(addMetadataURL, messageRecord.message)              
               }
               catch(e)
               {
