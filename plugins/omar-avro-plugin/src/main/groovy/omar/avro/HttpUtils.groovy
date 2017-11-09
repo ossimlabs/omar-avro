@@ -114,7 +114,8 @@ class HttpUtils
         String host = getHostFromUrl(tempUrl)
         String path = tempUrl.path
 
-        log.debug "url: ${path}"
+       log.debug "host: ${host}"
+        log.debug "path: ${path}"
         log.debug "body: ${body}"
         try {
             def http = new HTTPBuilder(host)
@@ -126,7 +127,7 @@ class HttpUtils
                 log.error "${result.message}"
             }
 
-            http.post(path: "/", body: body, requestContentType: JSON) { resp ->
+            http.post(path: path, body: body, requestContentType: JSON) { resp ->
                 result.message = resp.statusLine
                 result.status = resp.statusLine.statusCode
                 log.info "${result.message}"
