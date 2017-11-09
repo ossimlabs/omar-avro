@@ -114,9 +114,6 @@ class HttpUtils
         String host = getHostFromUrl(tempUrl)
         String path = tempUrl.path
 
-       log.debug "host: ${host}"
-        log.debug "path: ${path}"
-        log.debug "body: ${body}"
         try {
             def http = new HTTPBuilder(host)
 
