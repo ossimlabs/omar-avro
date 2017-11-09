@@ -105,18 +105,20 @@ class HttpUtils
    static Map postToAvroMetadata(String urlPath, String body)
    {
       def result = [status:200,message:""]
+      log.debug "url: ${urlPath}"
+      log.debug "body: ${body}"
       try
       {
          def http = new HTTPBuilder(urlPath)
          http.handler.failure = { resp ->
             result.status = resp.status
             result.message = resp.statusLine
-            log.error(result.message)
+            log.error "${result.message}"
          }
          http.post(path: "/", body: body, requestContentType: TEXT) { resp ->
              result.message = resp.statusLine
              result.status = resp.statusLine.statusCode
-            log.info(result.message)
+            log.info ${result.message}
          }
       }
       catch (e)
@@ -124,7 +126,7 @@ class HttpUtils
          result.status = HttpStatus.NOT_FOUND
          result.message = e.toString()
          
-         log.error(result.message)
+         log.error "${result.message}"
       }
       return result
    }
