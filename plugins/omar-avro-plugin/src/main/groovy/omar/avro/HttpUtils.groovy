@@ -3,7 +3,7 @@ package omar.avro
 import groovy.util.logging.Slf4j
 import groovyx.net.http.HTTPBuilder
 import static groovyx.net.http.ContentType.URLENC
-import static groovyx.net.http.ContentType.TEXT
+import static groovyx.net.http.ContentType.JSON
 import omar.core.HttpStatus
 import java.net.URLConnection
 import java.io.BufferedInputStream
@@ -65,15 +65,7 @@ class HttpUtils
    {
       def result = [status:200,message:""]
       URL tempUrl = new URL(url)
-      String host
-      if(tempUrl.port> 0)
-      {
-         host = "${tempUrl.protocol}://${tempUrl.host}:${tempUrl.port}".toString()
-      }
-      else
-      {
-         host = "${tempUrl.protocol}://${tempUrl.host}".toString()
-      }
+      String host = getHostFromUrl(tempUrl)
       String path = tempUrl.path
 
       try{
@@ -101,33 +93,53 @@ class HttpUtils
 
       result
    }
-   
-   static Map postToAvroMetadata(String urlPath, String body)
-   {
-      def result = [status:200,message:""]
-      log.debug "url: ${urlPath}"
-      log.debug "body: ${body}"
-      try
-      {
-         def http = new HTTPBuilder(urlPath)
-         http.handler.failure = { resp ->
-            result.status = resp.status
-            result.message = resp.statusLine
+
+    static String getHostFromUrl(URL url) {
+        String host
+        if(url.port> 0)
+        {
+            host = "${url.protocol}://${url.host}:${url.port}".toString()
+        }
+        else
+        {
+            host = "${url.protocol}://${url.host}".toString()
+        }
+        return host
+    }
+
+    static Map postToAvroMetadata(String url, String body)
+    {
+        def result = [status:200,message:""]
+        URL tempUrl = new URL(url)
+        String host = getHostFromUrl(tempUrl)
+        String path = tempUrl.path
+
+        log.debug "url: ${path}"
+        log.debug "body: ${body}"
+        try {
+            def http = new HTTPBuilder(host)
+
+            // Set http failure handler
+            http.handler.failure = {resp->
+                result.status = resp.status
+                result.message = resp.statusLine
+                log.error "${result.message}"
+            }
+
+            http.post(path: "/", body: body, requestContentType: JSON) { resp ->
+                result.message = resp.statusLine
+                result.status = resp.statusLine.statusCode
+                log.info "${result.message}"
+            }
+        }
+        catch (e)
+        {
+            result.status = HttpStatus.NOT_FOUND
+            result.message = e.toString()
+
             log.error "${result.message}"
-         }
-         http.post(path: "/", body: body, requestContentType: TEXT) { resp ->
-             result.message = resp.statusLine
-             result.status = resp.statusLine.statusCode
-            log.info "${result.message}"
-         }
-      }
-      catch (e)
-      {
-         result.status = HttpStatus.NOT_FOUND
-         result.message = e.toString()
-         
-         log.error "${result.message}"
-      }
-      return result
-   }
+        }
+        return result
+    }
+
 }
