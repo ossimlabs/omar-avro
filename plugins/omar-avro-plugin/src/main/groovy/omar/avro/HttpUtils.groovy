@@ -118,7 +118,7 @@ class HttpUtils
          http.post(path: "/", body: body, requestContentType: TEXT) { resp ->
              result.message = resp.statusLine
              result.status = resp.statusLine.statusCode
-            log.info ${result.message}
+            log.info "${result.message}"
          }
       }
       catch (e)
