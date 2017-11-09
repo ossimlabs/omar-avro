@@ -3,7 +3,7 @@ package omar.avro
 import groovy.util.logging.Slf4j
 import groovyx.net.http.HTTPBuilder
 import static groovyx.net.http.ContentType.URLENC
-import static groovyx.net.http.ContentType.JSON
+import static groovyx.net.http.ContentType.TEXT
 import omar.core.HttpStatus
 import java.net.URLConnection
 import java.io.BufferedInputStream
