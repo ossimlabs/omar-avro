@@ -115,7 +115,7 @@ class HttpUtils
             result.message = resp.statusLine
             log.error "${result.message}"
          }
-         http.post(body: body, requestContentType: JSON) { resp ->
+         http.post(path: urlPath, body: body, requestContentType: JSON) { resp ->
              result.message = resp.statusLine
              result.status = resp.statusLine.statusCode
             log.info "${result.message}"
