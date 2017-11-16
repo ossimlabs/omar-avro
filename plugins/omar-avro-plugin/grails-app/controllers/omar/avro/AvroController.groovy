@@ -3,7 +3,6 @@ import omar.core.BindUtil
 import grails.converters.JSON
 
 import io.swagger.annotations.*
-
 @Api(value = "Avro",
      description = "API operations for AVRO Payload manipulation",
      produces = 'application/json',
@@ -90,8 +89,8 @@ The service api **listFiles** supports pagination and will list the current loca
    @ApiOperation(value = "Reset File Processing Status", consumes= 'application/json', produces='application/json', httpMethod="POST")
    @ApiImplicitParams([
            @ApiImplicitParam(name = 'processId', value = 'Process Id', required=false, paramType = 'query', dataType = 'string'),
-           @ApiImplicitParam(name = 'status', value = 'Set process status', allowableValues="[READY,PAUSED,CANCELED,FINISHED,FAILED]",  defaultValue = 'READY', paramType = 'query', dataType = 'string'),
-           @ApiImplicitParam(name = 'whereStatusEquals', value = 'Where status equals', allowableValues="[READY,PAUSED,CANCELED,FINISHED,FAILED,RUNNING]",  defaultValue = '', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'status', value = 'Set process status', allowableValues="READY,PAUSED,CANCELED,FINISHED,FAILED",  defaultValue = 'READY', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'whereStatusEquals', value = 'Where status equals', allowableValues="READY,PAUSED,CANCELED,FINISHED,FAILED,RUNNING",  defaultValue = '', paramType = 'query', dataType = 'string'),
    ])
    def resetFileProcessingStatus()
    {

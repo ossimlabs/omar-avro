@@ -1,4 +1,4 @@
-package avro.app
+package omar.avro
 
 class UrlMappings {
 

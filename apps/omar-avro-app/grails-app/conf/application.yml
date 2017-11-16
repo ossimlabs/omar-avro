@@ -126,7 +126,7 @@ environments:
             url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
     production:
         dataSource:
-            dbCreate: none
+            dbCreate: update
             url: jdbc:h2:./prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
             properties:
                 jmxEnabled: true
@@ -170,8 +170,14 @@ omar:
           overviewType: "ossim_tiff_box"
           filename: ""
     stagingDelay: 5000
+    metadata:
+      addMetadataEndPoint: "http://omar-avro-metadata:8080/omar-avro-metadata/avroMetadata/add"
+    
 
 swagger:
   schemes:
     - HTTPS
     - HTTP
+
+logging:
+  config: classpath:logback.groovy
