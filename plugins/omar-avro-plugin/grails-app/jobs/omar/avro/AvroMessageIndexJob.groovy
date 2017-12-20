@@ -14,7 +14,6 @@ class AvroMessageIndexJob {
     }
 
     def execute() {
-      log.trace "Entered........."
       def messageRecord
       Boolean errorFlag = false
       def starttime
@@ -72,7 +71,7 @@ class AvroMessageIndexJob {
                 if(!fullPathLocation.exists())
                 {
               
-                  log.info "DOWNLOADING: ${sourceURI} to ${fullPathLocation}"
+//                  log.info "DOWNLOADING: ${sourceURI} to ${fullPathLocation}"
                   String commandString = OmarAvroUtils.avroConfig.download?.command
                   //println "COMMAND STRING === ${commandString}"
               
@@ -85,7 +84,7 @@ class AvroMessageIndexJob {
                     HttpUtils.downloadURIShell(commandString, fullPathLocation.toString(), sourceURI)
                   }
               
-                  log.info "DOWNLOADED: ${sourceURI} to ${fullPathLocation}"
+ //                 log.info "DOWNLOADED: ${sourceURI} to ${fullPathLocation}"
 
                   avroService.updatePayloadStatus(messageId, ProcessStatus.FINISHED, "DOWNLOADED: ${sourceURI} to ${fullPathLocation}")
               
@@ -132,7 +131,8 @@ class AvroMessageIndexJob {
             endtime = System.currentTimeMillis()
             procTime = endtime - starttime
 
-            avro_logs = new JsonBuilder(ingestdate: ingestdate, procTime: procTime, inboxuri: fullPathLocation.toString())
+            avro_logs = new JsonBuilder(ingestdate: ingestdate, procTime: procTime, inboxuri: fullPathLocation.toString(),
+            filename: ${fullPathLocation})
 
             log.info avro_logs.toString()
 
