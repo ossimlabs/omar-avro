@@ -42,7 +42,6 @@ class AvroFileProcessingJob {
                while(!stopAttempts&&(attempt < nAttempts))
                {
                   def result   = HttpUtils.postMessage(url, params)
-                  log.info "Message posted"
                   // is a 200 range response
                   //
                   if((result?.status >= 200) && (result?.status <300))

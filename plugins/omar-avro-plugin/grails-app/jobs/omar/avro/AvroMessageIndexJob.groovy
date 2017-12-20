@@ -29,10 +29,8 @@ class AvroMessageIndexJob {
         String messageId = messageRecord.messageId
         ingestMetricsService.startCopy(messageId)
 
-        log.info "Processing Message with ID: ${messageRecord.messageId}"
-        ingestdate = new Date().format("YYYY-MM-DD HH:mm:ss.Ms")
+        ingestdate = new Date().format("yyyy-MM-dd hh:mm:ss.ms")
 
-        log.info "Ingested an image at time: " + ingestdate
         starttime = System.currentTimeMillis()
 
         try {
@@ -88,16 +86,7 @@ class AvroMessageIndexJob {
                   }
               
                   log.info "DOWNLOADED: ${sourceURI} to ${fullPathLocation}"
-//                  if(config.stagingDelay){
-//                    for(int x=0;x<3;++x)
-//                    {
-//                      if(!new File(fullPathLocation.toString()).exists())
-//                      {
-//                        log.info "Try ${x}...File '${fullPathLocation}' doesn't doesn't exist yet, delaying for ${config.stagingDelay} milli seconds"
-//                        sleep( config.stagingDelay )
-//                      }
-//                    }
-//                  }
+
                   avroService.updatePayloadStatus(messageId, ProcessStatus.FINISHED, "DOWNLOADED: ${sourceURI} to ${fullPathLocation}")
               
                 }
@@ -142,7 +131,6 @@ class AvroMessageIndexJob {
 
             endtime = System.currentTimeMillis()
             procTime = endtime - starttime
-            log.info "time for ingest: " + procTime
 
             avro_logs = new JsonBuilder(ingestdate: ingestdate, procTime: procTime, inboxuri: fullPathLocation.toString())
 
