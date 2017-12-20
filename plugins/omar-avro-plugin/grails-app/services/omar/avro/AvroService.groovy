@@ -192,7 +192,6 @@ class AvroService {
         }
         else
         {
-          log.info "Added ${avroFile.filename}"
           result.data <<
                   [
                      processId:avroFile.processId,
@@ -409,7 +408,6 @@ class AvroService {
         startTime = System.currentTimeMillis()
 
         ingestdate = new Date().format("YYYY-MM-DD HH:mm:ss.Ms")
-        log.info "starting ingest for the following file: " + messageId + " at time " + ingestdate
 
         if(!avroPayload)
         {
@@ -427,7 +425,7 @@ class AvroService {
             }
             else
             {
-              log.info "Added message for processing with ID: ${avroPayload.messageId}"
+              result.message = "Added message for processing with ID: ${avroPayload.messageId}"
               result.data <<
                       [
                          messageId:avroPayload.messageId,
@@ -439,15 +437,13 @@ class AvroService {
           else
           {
             result.message = "File destination ${fullPathLocation} is already being processed and will not be added."
-            log.info "File destination ${fullPathLocation} is already being processed."
-          } 
+          }
         }
         else
         {
           if(avroPayload.status != ProcessStatus.FAILED)
           {
             result.message = "File destination ${fullPathLocation} is already being processed and will not be added."
-            log.info "File destination ${fullPathLocation} is already being processed."
           }
           else
           {
