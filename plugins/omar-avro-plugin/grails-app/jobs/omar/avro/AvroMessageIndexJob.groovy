@@ -47,7 +47,6 @@ class AvroMessageIndexJob {
           }
           catch(e)
           {
-          
             avroService.updatePayloadStatus(messageId, ProcessStatus.FAILED, "Unable to parse message.  Not a valid JSON format")
             log.error "Bad Json format.  Message will be ignored!"
           
