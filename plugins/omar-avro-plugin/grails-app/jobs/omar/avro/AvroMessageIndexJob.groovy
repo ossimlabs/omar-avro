@@ -159,9 +159,9 @@ class AvroMessageIndexJob {
 
         log.trace "Leaving........."
       }
-    }
-    catch(e)
-    {
-      log.error e.toString()      
+      catch(e)
+      {
+        log.error e.toString()      
+      }
     }
 }
