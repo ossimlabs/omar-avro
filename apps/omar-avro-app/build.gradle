@@ -8,7 +8,7 @@ buildscript {
           "EXPOSE 8081",
           "WORKDIR \$HOME",
           "USER root",
-          "RUN chmod 755 $HOME && chmod 644 $HOME/*",
+          "RUN chmod 755 \$HOME && chmod 644 \$HOME/*",
           "USER 1001",
           "CMD java -Xms256m -Xmx1024m -Djava.security.egd=file:/dev/./urandom -jar ./${project.name}-${buildVersion}-${buildVersionTag}.jar"
           ]
