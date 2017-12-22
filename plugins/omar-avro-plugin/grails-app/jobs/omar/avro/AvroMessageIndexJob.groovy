@@ -138,6 +138,7 @@ class AvroMessageIndexJob {
 
               avro_logs = new JsonBuilder(ingestdate: ingestdate, procTime: procTime, inboxuri: fullPathLocation.toString(),
                                   sqs_logs: jsonObj.sqs_logs?.toString())
+              println jsonObj.toString()
 
               log.info avro_logs.toString()
 
