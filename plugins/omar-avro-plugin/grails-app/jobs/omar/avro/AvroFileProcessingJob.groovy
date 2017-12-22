@@ -20,7 +20,7 @@ class AvroFileProcessingJob {
          def destinationType = config.destination.type.toLowerCase()
          while(fileRecord = avroService.nextFile())
          {
-            logging.debug "Processing record: ${fileRecord}"
+            log.debug "Processing record: ${fileRecord}"
             switch(destinationType)
             {
                case "stdout":
