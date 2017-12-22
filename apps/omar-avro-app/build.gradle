@@ -4,16 +4,16 @@ buildscript {
      dockerStatementsOverride = {
        [
           "FROM ${project.dockerNamespaceUrl}${project.ext.baseImage}:${project.dockerAppTag}",
-          """ENV SPRING_CLOUD_CONFIG_ENABLED=true \\
-    SPRING_CLOUD_DISCOVERY_ENABLED=true \\
-	        "COPY ${project.name}-${buildVersion}-${buildVersionTag}.jar \$HOME/",
+          "ENV SPRING_CLOUD_CONFIG_ENABLED=true, ",
+          "SPRING_CLOUD_DISCOVERY_ENABLED=true",
+	      "COPY ${project.name}-${buildVersion}-${buildVersionTag}.jar \$HOME/",
           "EXPOSE 8081",
           "WORKDIR \$HOME",
           "USER root",
           "RUN chmod 755 \$HOME && chmod 644 \$HOME/*",
           "USER 1001",
           "CMD java -Xms256m -Xmx1024m -Djava.security.egd=file:/dev/./urandom -jar ./${project.name}-${buildVersion}-${buildVersionTag}.jar"
-          ]
+       ]
      }
 	}
   if(System.env.OMAR_COMMON_PROPERTIES)
