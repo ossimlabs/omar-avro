@@ -5,7 +5,7 @@ buildscript {
        [
           "FROM ${project.dockerNamespaceUrl}${project.ext.baseImage}:${project.dockerAppTag}",
           "ENV SPRING_CLOUD_CONFIG_ENABLED=true, ",
-          "SPRING_CLOUD_DISCOVERY_ENABLED=true",
+          "ENV SPRING_CLOUD_DISCOVERY_ENABLED=true",
 	      "COPY ${project.name}-${buildVersion}-${buildVersionTag}.jar \$HOME/",
           "EXPOSE 8081",
           "WORKDIR \$HOME",
