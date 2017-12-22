@@ -34,7 +34,7 @@ class AvroMessageIndexJob {
           ingestdate = new Date().format("yyyy-MM-dd hh:mm:ss.ms")
 
           starttime = System.currentTimeMillis()
-
+          log.debug "Processing download: ${messageRecord?.messageId}"
           try {
 
             def jsonObj
