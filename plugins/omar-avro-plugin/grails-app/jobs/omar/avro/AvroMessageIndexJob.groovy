@@ -42,6 +42,10 @@ class AvroMessageIndexJob {
             try{
               jsonObj = avroService.convertMessageToJsonWithSubField(messageRecord.message)
 
+                // DEBUG
+                println "MessageId $messageId"
+                println "${OmarAvroUtils.avroConfig.toString()}"
+
              // println jsonObj
               // actual image information is in a subfield of the root JSON object
             }
@@ -138,6 +142,8 @@ class AvroMessageIndexJob {
 
               avro_logs = new JsonBuilder(ingestdateAAAA: ingestdate, procTime: procTime, inboxuri: fullPathLocation.toString(),
                                   sqs_logs: jsonObj.sqs_logs?.toString())
+
+                // DEBUG
               println jsonObj.toString()
 
               log.info avro_logs.toString()
