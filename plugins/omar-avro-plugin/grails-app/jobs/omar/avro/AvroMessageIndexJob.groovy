@@ -3,6 +3,9 @@ import groovy.json.JsonSlurper
 import omar.core.ProcessStatus
 import groovy.json.JsonBuilder
 
+import java.nio.file.Files
+import java.nio.file.Path
+
 
 class AvroMessageIndexJob {
    def avroService
@@ -72,7 +75,7 @@ class AvroMessageIndexJob {
               
                 try
                 {
-              
+                  long fileSize
                   if(!fullPathLocation.exists())
                   {
                 
@@ -88,6 +91,7 @@ class AvroMessageIndexJob {
                     {
                       HttpUtils.downloadURIShell(commandString, fullPathLocation.toString(), sourceURI)
                     }
+                    fileSize = fullPathLocation.size()
                 
    //                 log.info "DOWNLOADED: ${sourceURI} to ${fullPathLocation}"
 
@@ -114,9 +118,9 @@ class AvroMessageIndexJob {
                   def logsJson = new JsonBuilder(
                           ingestdate_sqs: jsonObj.ingestdate_sqs,
                           acquistiondate: jsonObj.acquistiondate,
-//                          uRL: jsonObj.uRL,
-//                          missionID: jsonObj.missionID,
-//                          imageId: jsonObj.imageId,
+                          fileSize: fileSize,
+                          missionID: jsonObj.missionID,
+                          imageId: jsonObj.imageId,
                           avroCopyDuration: procTime
                   )
 
