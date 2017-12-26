@@ -36,7 +36,7 @@ omar:
         # If this flag is false it will do the staging inline to the endpoint call.
         # You can also specify the parameters "overviewCompressionType" which can be of values "NONE","JPEG","PACKBITS", or "DEFLATE" and also the paramter "overviewType" where the value can be "ossim_tiff_box", "ossim_tiff_nearest", or "ossim_kakadu_nitf_j2k".
         addRasterEndPointParams:
-          background: "false"
+          background: "true" # TODO: Change this back to false
           buildHistograms: "true"
           buildOverviews: "true"
           overviewCompressionType: "NONE"
