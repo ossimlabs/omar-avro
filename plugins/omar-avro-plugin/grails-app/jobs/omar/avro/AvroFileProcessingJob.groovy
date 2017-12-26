@@ -34,6 +34,7 @@ class AvroFileProcessingJob {
                   String field = config.destination.post.addRasterEndPointField
                   HashMap params = config.destination.post.addRasterEndPointParams as HashMap
                   params.filename = fileRecord.filename
+                  params.logs = fileRecord.logs
                   log.info "posting ${params} to URL: ${url}"
 
                   Boolean stopAttempts = false
