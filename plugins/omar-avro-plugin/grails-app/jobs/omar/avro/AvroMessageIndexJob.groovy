@@ -20,7 +20,6 @@ class AvroMessageIndexJob {
       def endtime
       def procTime
       def ingestdate
-      def avro_logs
       def messageRecordsToRetry = []
 
       try{
@@ -30,10 +29,10 @@ class AvroMessageIndexJob {
         {
           String messageId = messageRecord.messageId
           ingestMetricsService.startCopy(messageId)
+          starttime = System.currentTimeMillis()
 
           ingestdate = new Date().format("yyyy-MM-dd hh:mm:ss.ms")
 
-          starttime = System.currentTimeMillis()
           log.debug "Processing download: ${messageRecord?.messageId}"
           try {
 
@@ -104,6 +103,10 @@ class AvroMessageIndexJob {
                   }
                 
                   ingestMetricsService.endCopy(messageId)
+                  endtime = System.currentTimeMillis()
+
+                  procTime = endtime - starttime
+
                   // TODO: Add copy metric to JSON
                   // TODO: Add json as param to addFile()
 
@@ -114,7 +117,7 @@ class AvroMessageIndexJob {
 //                          uRL: jsonObj.uRL,
 //                          missionID: jsonObj.missionID,
 //                          imageId: jsonObj.imageId,
-                          avroCopyDuration: 5
+                          avroCopyDuration: procTime
                   )
 
                   avroService.addFile(new IndexFileCommand(filename:fullPathLocation), logsJson)
@@ -150,17 +153,6 @@ class AvroMessageIndexJob {
                 ingestMetricsService.setStatus(messageId, ProcessStatus.FAILED.toString(),"Unable to create directory '${testPath}'.".toString())
                 messageRecord = null
               }
-
-              endtime = System.currentTimeMillis()
-              procTime = endtime - starttime
-
-              avro_logs = new JsonBuilder(ingestdate: ingestdate, procTime: procTime, inboxuri: fullPathLocation.toString(),
-                                  ingestdate_sqs: jsonObj.toString())
-
-                // DEBUG
-              println jsonObj.toString()
-
-              log.info avro_logs.toString()
 
             }
             else
