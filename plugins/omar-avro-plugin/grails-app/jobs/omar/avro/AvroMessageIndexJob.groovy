@@ -106,7 +106,18 @@ class AvroMessageIndexJob {
                   ingestMetricsService.endCopy(messageId)
                   // TODO: Add copy metric to JSON
                   // TODO: Add json as param to addFile()
-                  avroService.addFile(new IndexFileCommand(filename:fullPathLocation), jsonObj)
+
+                  // ingest date, copy time, image id, acq date
+                  def logsJson = new JsonBuilder(
+                          ingestdate_sqs: jsonObj.ingestdate_sqs,
+                          acquistiondate: jsonObj.acquistiondate,
+//                          uRL: jsonObj.uRL,
+//                          missionID: jsonObj.missionID,
+//                          imageId: jsonObj.imageId,
+                          avroCopyDuration: 5
+                  )
+
+                  avroService.addFile(new IndexFileCommand(filename:fullPathLocation), logsJson)
                   println "DEBUG FILES: ${avroService.listFiles()}"
 
                   /* -- Dylan Thomas
