@@ -140,8 +140,8 @@ class AvroMessageIndexJob {
               endtime = System.currentTimeMillis()
               procTime = endtime - starttime
 
-              avro_logs = new JsonBuilder(ingestdateAAAA: ingestdate, procTime: procTime, inboxuri: fullPathLocation.toString(),
-                                  sqs_logs: jsonObj.sqs_logs?.toString())
+              avro_logs = new JsonBuilder(ingestdate: ingestdate, procTime: procTime, inboxuri: fullPathLocation.toString(),
+                                  ingestdate_sqs: jsonObj.ingestdate_sqs?.toString())
 
                 // DEBUG
               println jsonObj.toString()
