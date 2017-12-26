@@ -46,7 +46,7 @@ class AvroMessageIndexJob {
                 println "MessageId $messageId"
                 println "${OmarAvroUtils.avroConfig.toString()}"
 
-             // println jsonObj
+              println "jsonObj" + jsonObj
               // actual image information is in a subfield of the root JSON object
             }
             catch(e)
@@ -141,7 +141,7 @@ class AvroMessageIndexJob {
               procTime = endtime - starttime
 
               avro_logs = new JsonBuilder(ingestdate: ingestdate, procTime: procTime, inboxuri: fullPathLocation.toString(),
-                                  ingestdate_sqs: jsonObj.ingestdate_sqs?.toString())
+                                  ingestdate_sqs: jsonObj.toString())
 
                 // DEBUG
               println jsonObj.toString()
