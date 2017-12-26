@@ -190,7 +190,12 @@ class AvroService {
 
     result
   }
-  HashMap addFile(IndexFileCommand cmd)
+  /* TODO
+  Collect logs in AvroIndexJob.
+  IndexJob should send logs here.
+  This method should take in JSON logs.
+   */
+  HashMap addFile(IndexFileCommand cmd, def jsonLogs)
   {
     HashMap result = [status:HttpStatus.SUCCESS,
                       statusCode:HttpStatus.OK,
@@ -221,7 +226,8 @@ class AvroService {
         avroFile = new AvroFile(filename: filename,
                                processId:getUniqueProcessId(),
                                status:ProcessStatus.READY,
-                               statusMessage:"")
+                               statusMessage:"",
+                               logs: jsonLogs.toString())
         saveFlag = true
       }
       if(saveFlag)

@@ -104,7 +104,10 @@ class AvroMessageIndexJob {
                   }
                 
                   ingestMetricsService.endCopy(messageId)
-                  avroService.addFile(new IndexFileCommand(filename:fullPathLocation))
+                  // TODO: Add copy metric to JSON
+                  // TODO: Add json as param to addFile()
+                  avroService.addFile(new IndexFileCommand(filename:fullPathLocation), jsonObj)
+                  println "DEBUG FILES: ${avroService.listFiles()}"
 
                   /* -- Dylan Thomas
                    * Create avro-metadata here
