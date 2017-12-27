@@ -22,7 +22,6 @@ class AvroMessageIndexJob {
       def starttime
       def endtime
       def procTime
-      def ingestdate
       def messageRecordsToRetry = []
 
       try{
@@ -34,8 +33,6 @@ class AvroMessageIndexJob {
           ingestMetricsService.startCopy(messageId)
           starttime = System.currentTimeMillis()
 
-          ingestdate = new Date()
-
           log.debug "Processing download: ${messageRecord?.messageId}"
           try {
 
@@ -44,12 +41,6 @@ class AvroMessageIndexJob {
             try{
               jsonObj = avroService.convertMessageToJsonWithSubField(messageRecord.message)
 
-                // DEBUG
-//                println "MessageId $messageId"
-//                println "${OmarAvroUtils.avroConfig.toString()}"
-
-//              println "jsonObj" + jsonObj
-              // actual image information is in a subfield of the root JSON object
             }
             catch(e)
             {
