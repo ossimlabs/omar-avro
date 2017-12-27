@@ -117,7 +117,7 @@ class AvroMessageIndexJob {
                   // ingest date, copy time, image id, acq date
                   def logsJson = new JsonBuilder(
                           ingestdate_sqs: jsonObj.ingestdate_sqs,
-                          acquistiondate: jsonObj.acquistiondate,
+                          acquisitiondate: jsonObj.acquistiondate,
                           fileSize: fileSize,
                           missionID: jsonObj.missionID,
                           imageId: jsonObj.imageId,
