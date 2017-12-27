@@ -45,10 +45,10 @@ class AvroMessageIndexJob {
               jsonObj = avroService.convertMessageToJsonWithSubField(messageRecord.message)
 
                 // DEBUG
-                println "MessageId $messageId"
-                println "${OmarAvroUtils.avroConfig.toString()}"
+//                println "MessageId $messageId"
+//                println "${OmarAvroUtils.avroConfig.toString()}"
 
-              println "jsonObj" + jsonObj
+//              println "jsonObj" + jsonObj
               // actual image information is in a subfield of the root JSON object
             }
             catch(e)
@@ -125,7 +125,7 @@ class AvroMessageIndexJob {
                   )
 
                   avroService.addFile(new IndexFileCommand(filename:fullPathLocation), logsJson)
-                  println "DEBUG FILES: ${avroService.listFiles()}"
+//                  println "DEBUG FILES: ${avroService.listFiles()}"
 
                   /* -- Dylan Thomas
                    * Create avro-metadata here
