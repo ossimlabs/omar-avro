@@ -34,7 +34,7 @@ class AvroMessageIndexJob {
           ingestMetricsService.startCopy(messageId)
           starttime = System.currentTimeMillis()
 
-          ingestdate = new Date().format("yyyy-MM-dd hh:mm:ss.ms")
+          ingestdate = new Date()
 
           log.debug "Processing download: ${messageRecord?.messageId}"
           try {
