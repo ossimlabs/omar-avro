@@ -102,9 +102,6 @@ class AvroMessageIndexJob {
 
                   def copyTimeInSeconds = (endtime - starttime) / 1000
 
-                  // TODO: Add copy metric to JSON
-                  // TODO: Add json as param to addFile()
-
                   // ingest date, copy time, image id, acq date
                   def logsJson = new JsonBuilder(
                           ingest_date: jsonObj["ingest_date"],
