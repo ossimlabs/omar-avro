@@ -1,4 +1,6 @@
 package omar.avro
+
+import groovy.json.JsonBuilder
 import omar.core.ProcessStatus
 import java.sql.Timestamp
 import omar.core.DateUtil
@@ -10,6 +12,7 @@ class AvroFile {
    ProcessStatus status
    String statusMessage
    Date dateCreated
+   String logs
 
    static constraints = {
       processId nullable:false, unique:true
@@ -17,6 +20,7 @@ class AvroFile {
       status nullable:false 
       statusMessage nullable:true
       dateCreated nullable: true
+      logs nullable: false
    }
    static mapping = {
       cache true

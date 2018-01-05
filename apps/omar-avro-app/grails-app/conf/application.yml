@@ -36,7 +36,7 @@ omar:
         # If this flag is false it will do the staging inline to the endpoint call.
         # You can also specify the parameters "overviewCompressionType" which can be of values "NONE","JPEG","PACKBITS", or "DEFLATE" and also the paramter "overviewType" where the value can be "ossim_tiff_box", "ossim_tiff_nearest", or "ossim_kakadu_nitf_j2k".
         addRasterEndPointParams:
-          background: "false"
+          background: "true" # TODO: Change this back to false
           buildHistograms: "true"
           buildOverviews: "true"
           overviewCompressionType: "NONE"
@@ -57,7 +57,11 @@ omar:
     # This allows one to specify a path to the message to be handled.
     jsonSubFieldPath: "Message"
     metadata:
-      addMetadataEndPoint: http://omar-avro-metadata-app:8080/omar-avro-metadata/avroMetadata/add
+      # Add metadata url.  Just so we can null it out this will have to be
+      # set on environments that support it
+      # You should just have to add the url:
+      # http://omar-avro-metadata-app:8080/omar-avro-metadata/avroMetadata/add
+      addMetadataEndPoint: ""
     # If a post to the stager fails, this is how many times it will trtry.
     nAttempts: 10
     # The source URI field name in the JSON Avro record.
