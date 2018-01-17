@@ -8,6 +8,12 @@ import omar.core.HttpStatus
 import java.net.URLConnection
 import java.io.BufferedInputStream
 import java.io.FileOutputStream
+import org.apache.http.HttpEntity
+import org.apache.http.HttpResponse
+import org.apache.http.client.methods.HttpPost
+import org.apache.http.client.HttpClient
+import org.apache.http.entity.StringEntity
+import org.apache.http.impl.client.DefaultHttpClient
 
 @Slf4j
 class HttpUtils
@@ -61,6 +67,40 @@ class HttpUtils
 
    }
 
+   static HashMap postData(String url, String data, String contentType)
+   {
+      def result = [status:200,
+                    message:""]
+      try{
+        HttpClient httpClient = new DefaultHttpClient()
+        HttpResponse response
+
+        HttpPost httpPost = new HttpPost(url)
+        // httpPost.setHeader("Content-Type", "text/xml")
+
+        HttpEntity reqEntity = new StringEntity(data, "UTF-8")
+        reqEntity.setContentType(contentType)
+        //reqEntity.setChunked(true)
+
+        httpPost.setEntity(reqEntity)
+
+        response = httpClient.execute(httpPost)
+        HttpEntity resEntity = response.getEntity()
+
+        result.status = response?.getStatusLine().getStatusCode()
+        result.message
+        if (resEntity != null) {
+            result.message = resEntity.content.text
+        }
+      }
+      catch(e)
+      {
+        result.status = HttpStatus.NOT_FOUND
+        result.messate = e.toString()
+      }
+
+      result;
+   }
    static HashMap postMessage(String url, HashMap params)//String field, String message)
    {
       def result = [status:200,message:""]

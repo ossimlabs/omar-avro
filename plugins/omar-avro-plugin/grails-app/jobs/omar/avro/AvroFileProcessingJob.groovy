@@ -17,7 +17,9 @@ class AvroFileProcessingJob {
          def fileRecord
          Boolean errorFlag = false
          def config = OmarAvroUtils.avroConfig
-         def destinationType = config.destination.type.toLowerCase()
+         def destinationType = config?.destination?.type
+
+         destinationType = destinationType?destinationType.toLowerCase():destinationType
          while(fileRecord = avroService.nextFile())
          {
             log.debug "Processing record: ${fileRecord}"
