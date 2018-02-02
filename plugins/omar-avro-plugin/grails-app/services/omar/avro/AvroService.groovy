@@ -102,13 +102,16 @@ class AvroService {
 
     result
   }
-  File getFullPathFromMessage(String message)
+  File getFullPathFromMessage(def message)
   {
     File result
     if(message)
     {
-      def jsonObj = convertMessageToJsonWithSubField(message)
-
+      def jsonObj = message
+      if(message instanceof String)
+      {
+         jsonObj = convertMessageToJsonWithSubField(message)
+      }
       if(jsonObj)
       {
         String suffix = AvroMessageUtils.getDestinationSuffixFromMessage(jsonObj)

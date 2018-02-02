@@ -6,9 +6,9 @@ class AvroFileProcessingJob {
    def avroService
    def ingestMetricsService
    def concurrent = false
-   static triggers = {
-      simple repeatInterval: 5000l // execute job once in 5 seconds
-   }
+//   static triggers = {
+//      simple repeatInterval: 5000l // execute job once in 5 seconds
+//   }
 
    def execute() {
       log.trace "Entered........."
@@ -17,7 +17,9 @@ class AvroFileProcessingJob {
          def fileRecord
          Boolean errorFlag = false
          def config = OmarAvroUtils.avroConfig
-         def destinationType = config.destination.type.toLowerCase()
+         def destinationType = config?.destination?.type
+
+         destinationType = destinationType?destinationType.toLowerCase():destinationType
          while(fileRecord = avroService.nextFile())
          {
             log.debug "Processing record: ${fileRecord}"
