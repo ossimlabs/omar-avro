@@ -4,7 +4,6 @@ if ( O2_DEV_HOME ) {
 
 include 'omar-avro-app',
         'omar-hibernate-spatial-plugin',
-        'omar-ingest-metrics-plugin',
         'omar-core-plugin',
         'omar-avro-plugin'
 
@@ -12,6 +11,5 @@ project(':omar-avro-app').projectDir = "${O2_DEV_HOME}/omar-avro/apps/omar-avro-
 project(':omar-avro-plugin').projectDir = "${O2_DEV_HOME}/omar-avro/plugins/omar-avro-plugin" as File
 project(':omar-core-plugin').projectDir = "${O2_DEV_HOME}/omar-core/plugins/omar-core-plugin" as File
 project(':omar-hibernate-spatial-plugin').projectDir = "${O2_DEV_HOME}/omar-hibernate-spatial/plugins/omar-hibernate-spatial-plugin" as File
-project(':omar-ingest-metrics-plugin').projectDir = "${O2_DEV_HOME}/omar-ingest-metrics/plugins/omar-ingest-metrics-plugin" as File
 
 }

@@ -9,7 +9,6 @@ import java.nio.file.Path
 
 class AvroMessageIndexJob {
    def avroService
-  def ingestMetricsService
   def concurrent = false
 
 //    static triggers = {
@@ -30,7 +29,6 @@ class AvroMessageIndexJob {
         while(messageRecord = avroService.nextMessage())
         {
           String messageId = messageRecord.messageId
-          ingestMetricsService.startCopy(messageId)
           starttime = System.currentTimeMillis()
 
           log.debug "Processing download: ${messageRecord?.messageId}"
@@ -97,7 +95,6 @@ class AvroMessageIndexJob {
                 
                   }
                 
-                  ingestMetricsService.endCopy(messageId)
                   endtime = System.currentTimeMillis()
 
                   def copyTimeInSeconds = (endtime - starttime) / 1000
@@ -135,14 +132,12 @@ class AvroMessageIndexJob {
                   }
                   avroService.updatePayloadStatus(messageId, ProcessStatus.FAILED, "Unable to Download: ${sourceURI} to ${fullPathLocation} With error: ${e}")
                   messageRecord = null
-                  ingestMetricsService.setStatus(messageId, ProcessStatus.FAILED.toString(), "Unable to Download: ${sourceURI} to ${fullPathLocation} With error: ${e}".toString())
                 }
               }
               else
               {
                 log.error "Unable to create directory '${testPath}'. "
                 avroService.updatePayloadStatus(messageId, ProcessStatus.FAILED, "Unable to create directory '${testPath}'.")
-                ingestMetricsService.setStatus(messageId, ProcessStatus.FAILED.toString(),"Unable to create directory '${testPath}'.".toString())
                 messageRecord = null
               }
 
@@ -151,7 +146,6 @@ class AvroMessageIndexJob {
             {
               log.error "JSON is not a proper AVRO message. Field '${OmarAvroUtils.avroConfig.sourceUriField}' not found."
               avroService.updatePayloadStatus(messageId, ProcessStatus.FAILED, "JSON is not a proper AVRO message. Field '${OmarAvroUtils.avroConfig.sourceUriField}' not found.")
-              ingestMetricsService.setStatus(messageId, ProcessStatus.FAILED.toString(),"JSON is not a proper AVRO message. Field '${OmarAvroUtils.avroConfig.sourceUriField}' not found.".toString())
               messageRecord = null
             }
           }
@@ -159,7 +153,6 @@ class AvroMessageIndexJob {
           {
             log.error "${e}"
             avroService.updatePayloadStatus(messageId, ProcessStatus.FAILED, "${messageId} has error: ${e}")
-            ingestMetricsService.setStatus(messageId, ProcessStatus.FAILED.toString(),"${messageId} has error: ${e}".toString())
           }
         }
 
