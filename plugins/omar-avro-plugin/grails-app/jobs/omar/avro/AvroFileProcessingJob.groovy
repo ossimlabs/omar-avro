@@ -4,7 +4,6 @@ import omar.core.ProcessStatus
 
 class AvroFileProcessingJob {
    def avroService
-   def ingestMetricsService
    def concurrent = false
 //   static triggers = {
 //      simple repeatInterval: 5000l // execute job once in 5 seconds
@@ -28,7 +27,6 @@ class AvroFileProcessingJob {
                case "stdout":
                   log.info "FINISHED ${fileRecord.filename}"
                   avroService.updateFileStatus(fileRecord.processId, ProcessStatus.FINISHED, "File successfully output")
-                  ingestMetricsService.endIngest(fileRecord.processId)
                   break
                case "post":
                   //sleep( config.stagingDelay ) // ensure that the NFS has enough time to flush bits
@@ -74,7 +72,6 @@ class AvroFileProcessingJob {
                            log.error "${result?.status}"
                            log.error "${result?.message} Post failed to ${url} for ${fileRecord.filename} with post field ${field}"
                            avroService.updateFileStatus(fileRecord.processId, ProcessStatus.FAILED, "Failed to post file to stager")
-                           ingestMetricsService.setStatus(fileRecord.processId, ProcessStatus.FAILED.toString(), "Failed to post file to stager")
                         }
                      }
 
