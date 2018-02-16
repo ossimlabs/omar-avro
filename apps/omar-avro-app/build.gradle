@@ -112,7 +112,7 @@ dependencies {
   testCompile "org.grails.plugins:geb"
   testCompile "org.grails:grails-web-testing-support"
   testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:${seleniumHtmlUnitDriverV}"
-  testRuntime "net.sourceforge.htmlunit:htmlunit:${htmlUnit/pV}"
+  testRuntime "net.sourceforge.htmlunit:htmlunit:${htmlUnitV}"
 }
 
 assets {
