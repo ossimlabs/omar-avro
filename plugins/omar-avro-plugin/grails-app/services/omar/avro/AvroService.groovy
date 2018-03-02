@@ -8,7 +8,6 @@ import groovy.json.JsonSlurper
 
 @Transactional
 class AvroService {
-  def ingestMetricsService
 
   private String getUniqueProcessId()
   {
@@ -474,7 +473,6 @@ class AvroService {
       if(fullPathLocation)
       {
         messageId = fullPathLocation.toString()
-        ingestMetricsService.startIngest(messageId, "")
         def avroPayload = AvroPayload.findByMessageId(messageId)
 
         startTime = System.currentTimeMillis()
