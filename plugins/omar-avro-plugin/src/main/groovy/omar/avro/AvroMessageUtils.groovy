@@ -12,6 +12,38 @@ import omar.core.DateUtil
 @Slf4j
 class AvroMessageUtils
 {
+  Date parseObservationDate(def jsonObj)
+  {
+    Date result
+    String dateStringFormat = "${OmarAvroUtils.avroConfig.dateFieldFormat}"
+    if(jsonObj."${OmarAvroUtils.avroConfig?.dateField}")
+    {
+         DateTime dt
+         if(dateStringFormat)
+         {
+            try{
+               DateTimeFormatter formatter = DateTimeFormat.forPattern(dateStringFormat)
+                       .withLocale(Locale.ROOT)
+                       .withChronology(ISOChronology.getInstanceUTC());
+
+               dt = formatter.parseDateTime(dateString);
+
+            }
+            catch(e)
+            {
+              dt = null
+            }
+         }
+         if(!dt)
+         {
+            dt = DateUtil.parseDateTime(dateString)
+         }
+
+         if(dt) result = dt.toDate();
+    }    
+
+    result;
+  }
   static String getDestinationSuffixFromMessage(def jsonObj)
   {
     String result
