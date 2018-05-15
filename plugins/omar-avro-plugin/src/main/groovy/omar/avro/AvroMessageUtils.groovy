@@ -12,7 +12,7 @@ import omar.core.DateUtil
 @Slf4j
 class AvroMessageUtils
 {
-  Date parseObservationDate(def jsonObj)
+  static Date parseObservationDate(def jsonObj)
   {
     Date result
     String dateStringFormat = "${OmarAvroUtils.avroConfig.dateFieldFormat}"
