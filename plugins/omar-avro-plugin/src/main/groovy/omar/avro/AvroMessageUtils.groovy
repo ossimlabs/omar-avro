@@ -19,6 +19,7 @@ class AvroMessageUtils
     if(jsonObj."${OmarAvroUtils.avroConfig?.dateField}")
     {
          DateTime dt
+         String dateString    = jsonObj."${OmarAvroUtils.avroConfig.dateField}"
          if(dateStringFormat)
          {
             try{
