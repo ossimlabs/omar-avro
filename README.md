@@ -18,12 +18,12 @@ Git clone or git pull the omar-common repo.
 - OMAR_COMMON_PROPERTIES
 
 ### Optional environment variables
-#### required by Jenkins or a local Artifactory or a local Openshift
+#### required by Jenkins or a local Nexus or a local Openshift
 
 - OPENSHIFT_USERNAME
 - OPENSHIFT_PASSWORD
-- ARTIFACTORY_USER
-- ARTIFACTORY_PASSWORD
+- REPOSITORY_MANAGER_USER
+- REPOSITORY_MANAGER_PASSWORD
 
 Example:
 ```
