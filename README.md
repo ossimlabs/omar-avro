@@ -1,7 +1,7 @@
 # omar-avro
 ### Welcome to the AVRO Service
 
-[![Build Status](https://jenkins.radiantbluecloud.com/buildStatus/icon?job=omar-avro-dev)]()
+[![Build Status](https://jenkins.ossim.io/buildStatus/icon?job=omar-avro-dev)]()
 
 This service takes an AVRO JSON payload or JSON record from an AVRO file as input and will process the file by looking for the reference URI field and downloading the File.  The schema definition is rather large but currently in the initial implementation we are only concerned with the following fields
 
