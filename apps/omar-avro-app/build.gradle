@@ -77,10 +77,10 @@ dependencyManagement {
 grails {
   plugins {
     compile project(':omar-avro-plugin')
-    compile project(':omar-core-plugin')
   }
 }
 dependencies {
+  compile "io.ossim.omar.plugins:omar-core-plugin:+"
 
   compile "de.codecentric:spring-boot-admin-starter-client:${springBootAdminStarterClientV}"
 

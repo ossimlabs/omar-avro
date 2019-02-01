@@ -59,15 +59,10 @@ dependencyManagement {
   applyMavenExclusions false
 }
 
-
-grails {
-  plugins {
-    compile project(':omar-core-plugin')
-    compile project(':omar-hibernate-spatial-plugin')
-  }
-}
-
 dependencies {
+  compile "io.ossim.omar.plugins:omar-core-plugin:+"
+  compile "io.ossim.omar.plugins:omar-hibernate-spatial-plugin:+"
+
   compile "org.grails.plugins:quartz:${quartzV}"
   compile "org.grails.plugins:quartz-monitor:1.3"
   compile "org.codehaus.groovy.modules.http-builder:http-builder:0.7.2"
