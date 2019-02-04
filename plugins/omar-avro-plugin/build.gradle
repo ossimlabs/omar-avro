@@ -10,9 +10,6 @@ buildscript {
   repositories {
     mavenLocal()
     maven { url "${ossimMavenProxy}" }
-    if( !System.env.WWW_CONNECTED || Boolean.parseBoolean( System.env.WWW_CONNECTED ) ) {
-        maven { url "https://repo.grails.org/grails/core" }
-    }
   }
   dependencies {
     classpath "org.grails:grails-gradle-plugin:$grailsVersion"
@@ -44,11 +41,6 @@ ext {
 repositories {
   mavenLocal()
   maven { url "${ossimMavenProxy}" }
-  if( !System.env.WWW_CONNECTED || Boolean.parseBoolean( System.env.WWW_CONNECTED ) ) {
-    mavenCentral()
-    maven { url "https://repo.grails.org/grails/core" }
-    maven { url "https://dl.bintray.com/ajay-kumar/plugins" }
-  }
 }
 
 dependencyManagement {
