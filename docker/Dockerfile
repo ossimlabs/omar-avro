@@ -1,0 +1,10 @@
+FROM quay.io/radiantsolutions/omar-base
+ENV SPRING_CLOUD_CONFIG_ENABLED=true,
+    SPRING_CLOUD_DISCOVERY_ENABLED=true
+COPY *.jar $HOME/
+EXPOSE 8081
+WORKDIR $HOME
+USER root
+RUN chmod 755 $HOME && chmod 644 $HOME/*
+USER 1001
+CMD java -Xms256m -Xmx1024m -Djava.security.egd=file:/dev/./urandom -jar ./*.jar
