@@ -48,6 +48,7 @@ dependencies {
   compile "io.ossim.omar.plugins:omar-core-plugin:${latestGradleIdentifier}"
   compile "io.ossim.omar.plugins:omar-hibernate-spatial-plugin:${latestGradleIdentifier}"
 
+  compile "io.swagger:swagger-annotations:1.5.15"
   compile "org.grails.plugins:quartz:${quartzV}"
   compile "org.grails.plugins:quartz-monitor:1.3"
   compile "org.codehaus.groovy.modules.http-builder:http-builder:0.7.2"
