@@ -1,4 +1,9 @@
 ---
+server:
+  contextPath: /omar-avro
+  port: 8081
+
+---
 grails:
     profile: web-plugin
     codegen:
