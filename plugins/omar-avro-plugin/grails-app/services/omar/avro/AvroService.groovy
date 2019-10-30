@@ -1,6 +1,6 @@
 package omar.avro
 
-import grails.transaction.Transactional
+import grails.gorm.transactions.Transactional
 import java.util.UUID
 import omar.core.HttpStatus
 import omar.core.ProcessStatus
