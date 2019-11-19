@@ -3,6 +3,8 @@ package omar.avro.plugin
 import grails.plugins.*
 import groovy.util.logging.Slf4j
 
+import omar.avro.*
+
 @Slf4j
 class OmarAvroPluginGrailsPlugin extends Plugin {
 
