@@ -36,7 +36,7 @@ node("${BUILD_NODE}"){
             -PossimMavenProxy=${OSSIM_MAVEN_PROXY}
         """
         archiveArtifacts "plugins/*/build/libs/*.jar"
-        archiveArtifacts "apps/*/build/libs/*.jar"
+        //archiveArtifacts "apps/*/build/libs/*.jar"
     }
 
     stage ("Publish Nexus")
