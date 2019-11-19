@@ -1,4 +1,4 @@
-package omar.avro
+package omar.avro.plugin
 
 class BootStrap {
 

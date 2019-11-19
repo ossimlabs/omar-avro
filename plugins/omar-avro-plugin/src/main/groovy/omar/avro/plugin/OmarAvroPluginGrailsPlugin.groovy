@@ -1,20 +1,20 @@
-package omar.avro
+package omar.avro.plugin
 
 import grails.plugins.*
 import groovy.util.logging.Slf4j
 
 @Slf4j
-class OmarAvroGrailsPlugin extends Plugin {
+class OmarAvroPluginGrailsPlugin extends Plugin {
 
     // the version or versions of Grails the plugin is designed for
-    def grailsVersion = "3.1.10 > *"
+    def grailsVersion = "4.0.1 > *"
     // resources that are excluded from plugin packaging
     def pluginExcludes = [
         "grails-app/views/error.gsp"
     ]
 
     // TODO Fill in these fields
-    def title = "Omar Avro" // Headline display name of the plugin
+    def title = "Omar Avro Plugin" // Headline display name of the plugin
     def author = "Your name"
     def authorEmail = ""
     def description = '''\
@@ -23,7 +23,7 @@ Brief summary/description of the plugin.
     def profiles = ['web']
 
     // URL to the plugin's documentation
-    def documentation = "http://grails.org/plugin/omar-avro"
+    def documentation = "http://grails.org/plugin/omar-avro-plugin"
 
     // Extra (optional) plugin metadata
 
@@ -52,7 +52,7 @@ Brief summary/description of the plugin.
         OmarAvroUtils.avroConfig
 
         log.trace("doWithSpring(): Leaving.............")
-
+        
         {->
             // TODO Implement runtime spring config (optional)
         }
