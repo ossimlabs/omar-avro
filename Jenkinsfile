@@ -11,6 +11,7 @@ properties([
     disableConcurrentBuilds()
 ])
 
+timeout(time: 60, unit: 'MINUTES') {
 node("${BUILD_NODE}"){
 
     stage("Checkout branch $BRANCH_NAME")
@@ -95,4 +96,5 @@ node("${BUILD_NODE}"){
         if ("${CLEAN_WORKSPACE}" == "true")
             step([$class: 'WsCleanup'])
     }
+}
 }
