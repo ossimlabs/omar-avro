@@ -12,5 +12,5 @@ ENV SPRING_CLOUD_CONFIG_ENABLED=true \
     SPRING_CLOUD_DISCOVERY_ENABLED=true
 WORKDIR $HOME
 EXPOSE 8080
-COPY *.jar $HOME/
+COPY *.jar home/*/plugins/*/build/libs/*.jar
 CMD ["/bin/sh", "/home/omar/run.sh"]
