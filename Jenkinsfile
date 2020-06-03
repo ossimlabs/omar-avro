@@ -56,7 +56,7 @@ podTemplate(
           sh """
           ./gradlew assemble \
               -PossimMavenProxy=${MAVEN_DOWNLOAD_URL}
-              cp plugins/*/build/libs/*.jar $HOME/
+              cp plugins/*/build/libs/*.jar docker/
           """
           archiveArtifacts "plugins/*/build/libs/*.jar"
         }
