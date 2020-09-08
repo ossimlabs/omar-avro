@@ -101,7 +101,7 @@ podTemplate(
     
     stage('Docker build') {
       container('docker') {
-        withDockerRegistry(credentialsId: 'dockerCredentials', url: "https://${DOCKER_REGISTRY_DOWNLOAD_URL}") {  //TODO
+        withDockerRegistry(credentialsId: 'dockerCredentials', url: "https://${DOCKER_REGISTRY_DOWNLOAD_URL}") {
           sh """
             docker build -t "${DOCKER_REGISTRY_PUBLIC_UPLOAD_URL}"/omar-avro-app:${VERSION} ./docker
           """
