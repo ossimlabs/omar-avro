@@ -103,7 +103,7 @@ podTemplate(
       container('docker') {
         withDockerRegistry(credentialsId: 'dockerCredentials', url: "https://${DOCKER_REGISTRY_DOWNLOAD_URL}") {
           sh """
-            docker build -t "${DOCKER_REGISTRY_PUBLIC_UPLOAD_URL}"/omar-avro-app:${VERSION} ./docker
+            docker build -t "${DOCKER_REGISTRY_PUBLIC_UPLOAD_URL}"/omar-avro:${VERSION} ./docker
           """
         }
       }
@@ -111,7 +111,7 @@ podTemplate(
         container('docker') {
           withDockerRegistry(credentialsId: 'dockerCredentials', url: "https://${DOCKER_REGISTRY_PUBLIC_UPLOAD_URL}") {
           sh """
-              docker push "${DOCKER_REGISTRY_PUBLIC_UPLOAD_URL}"/omar-avro-app:${VERSION}
+              docker push "${DOCKER_REGISTRY_PUBLIC_UPLOAD_URL}"/omar-avro:${VERSION}
           """
           }
         }
