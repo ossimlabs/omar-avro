@@ -409,7 +409,7 @@ class AvroService {
       }
       else if(cmd.whereStatusEquals)
       {
-        def objects = AvroFile.findAll("FROM AvroFile where status = '${cmd.whereStatusEquals}'")
+        def objects = AvroFile.findAll("FROM AvroFile where status = '${cmd.whereStatusEquals}'" as Closure)
 
         objects.each{record->
           record.status = status
