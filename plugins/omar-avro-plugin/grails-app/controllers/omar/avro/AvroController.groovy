@@ -88,8 +88,8 @@ The service api **listFiles** supports pagination and will list the current loca
    }
    @ApiOperation(value = "Reset File Processing Status", consumes= 'application/json', produces='application/json', httpMethod="POST")
    @ApiImplicitParams([
-           @ApiImplicitParam(name = 'processId', value = 'Process Id', required=false, paramType = 'query', dataType = 'string'),
            @ApiImplicitParam(name = 'status', value = 'Set process status', required=true, allowableValues="READY,PAUSED,CANCELED,FINISHED,FAILED",  defaultValue = 'READY', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'processId', value = 'Process Id', paramType = 'query', dataType = 'string'),
            @ApiImplicitParam(name = 'whereStatusEquals', value = 'Where status equals', allowableValues="READY,PAUSED,CANCELED,FINISHED,FAILED,RUNNING",  defaultValue = '', paramType = 'query', dataType = 'string'),
    ])
    def resetFileProcessingStatus()
