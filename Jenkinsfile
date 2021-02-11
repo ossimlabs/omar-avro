@@ -77,11 +77,11 @@ podTemplate(
           break
 
         case "dev":
-          TAG_NAME = "dev"
+          TAG_NAME = "latest"
           break
 
         default:
-          TAG_NAME = "dev"
+          TAG_NAME = "${BRANCH_NAME}"
           break
         }
 
