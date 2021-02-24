@@ -88,8 +88,8 @@ The service api **listFiles** supports pagination and will list the current loca
    }
    @ApiOperation(value = "Reset File Processing Status", consumes= 'application/json', produces='application/json', httpMethod="POST")
    @ApiImplicitParams([
-           @ApiImplicitParam(name = 'status', value = 'Set process status', required=true, allowableValues="READY,PAUSED,CANCELED,FINISHED,FAILED",  defaultValue = 'READY', paramType = 'query', dataType = 'string'),
-           @ApiImplicitParam(name = 'processId', value = 'Process Id', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'processId', value = 'Process Id', required=false, paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'status', value = 'Set process status', allowableValues="READY,PAUSED,CANCELED,FINISHED,FAILED",  defaultValue = 'READY', paramType = 'query', dataType = 'string'),
            @ApiImplicitParam(name = 'whereStatusEquals', value = 'Where status equals', allowableValues="READY,PAUSED,CANCELED,FINISHED,FAILED,RUNNING",  defaultValue = '', paramType = 'query', dataType = 'string'),
    ])
    def resetFileProcessingStatus()
@@ -154,18 +154,15 @@ The service api **listMessages** supports pagination and will list the current m
            @ApiImplicitParam(name = 'offset', value = 'Process Id', required=false, paramType = 'query', dataType = 'integer'),
            @ApiImplicitParam(name = 'limit', value = 'Process status', defaultValue = '', paramType = 'query', dataType = 'integer'),
    ])
-   def listMessages()
+   def listMessages(GetMessageCommand cmd)
    {
-      def jsonData = request.JSON?request.JSON as HashMap:null
-      def requestParams = params - params.subMap( ['controller', 'action'] )
-      def cmd = new GetMessageCommand()
+      cmd.validate()
+      if (cmd.errors.hasErrors()) {
+         render status: HttpStatus.UNPROCESSABLE_ENTITY
+         return
+      }
 
-      // get map from JSON and merge into parameters
-      if(jsonData) requestParams << jsonData
-      BindUtil.fixParamNames( GetMessageCommand, requestParams )
-      bindData( cmd, requestParams )
       HashMap result = avroService.listMessages(cmd)
-
       render contentType: "application/json", text: result as JSON
    }
 }
