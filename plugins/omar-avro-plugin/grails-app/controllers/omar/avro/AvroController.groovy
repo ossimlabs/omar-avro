@@ -3,6 +3,8 @@ import omar.core.BindUtil
 import grails.converters.JSON
 
 import io.swagger.annotations.*
+import org.springframework.http.HttpStatus
+
 @Api(value = "Avro",
      description = "API operations for AVRO Payload manipulation",
      produces = 'application/json',
