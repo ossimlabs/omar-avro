@@ -166,7 +166,6 @@ subprojects { project ->
             else if ( isGrailsPlugin ) 
             {
                 profile "org.grails.profiles:web-plugin"
-                testCompile "org.grails:grails-plugin-testing"
             }
         }
 
