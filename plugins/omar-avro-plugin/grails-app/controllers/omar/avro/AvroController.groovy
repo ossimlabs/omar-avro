@@ -48,7 +48,7 @@ Calling this URL endpoint **addFile** allows one to add the file to the backgrou
       if(jsonData) requestParams << jsonData
       BindUtil.fixParamNames( IndexFileCommand, requestParams )
       bindData( cmd, requestParams )
-      HashMap result = avroService.addFile(cmd)
+      HashMap result = avroService.addFile(cmd, "")
 
       response.status = result.statusCode
       render contentType: "application/json", text: result as JSON
