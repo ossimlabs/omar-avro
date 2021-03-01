@@ -45,7 +45,7 @@ class AvroControllerSpec extends Specification implements AutowiredTest, DataTes
         GetMessageCommand cmd = new GetMessageCommand()
 
         when:
-        cmd.limit = -1
+        cmd.limit = 1
         cmd.offset = 1
         controller.listMessages(cmd)
 
