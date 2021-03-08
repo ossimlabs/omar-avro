@@ -229,7 +229,7 @@ class AvroService {
                                processId:getUniqueProcessId(),
                                status:ProcessStatus.READY,
                                statusMessage:"",
-                               logs: jsonLogs.toString())
+                               logs: jsonLogs?.toString()?: "{}")
         saveFlag = true
       }
       if(saveFlag)
