@@ -52,3 +52,4 @@ Example:
  cd omar-avro/plugins/omar-avro-plugin
  gradle clean install
 ```
+
