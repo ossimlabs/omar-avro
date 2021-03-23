@@ -1,3 +1,5 @@
-When you have created a new version of this plugin, you must update the version number in the gradle.properties file in the following projects:
+#omar-avro-plugin
+
+This plugin is used by the following services:
 
   * omar-sqs-stager
