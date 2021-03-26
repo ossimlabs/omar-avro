@@ -24,7 +24,9 @@ subprojects { project ->
 
    project.ext {
      gitBranch = getCurrentGitBranch(project)
-     buildVersionTag = gitBranch == "master" ? "RELEASE" : "SNAPSHOT"
+       println "Aimee: ${gitBranch}"
+     buildVersionTag = gitBranch == "TO2-3589" ? "RELEASE" : "SNAPSHOT"
+       println "Aimee: ${buildVersionTag}"
     }
 
     project.version "${project.buildVersion}-${buildVersionTag}"
