@@ -20,7 +20,7 @@ podTemplate(
       privileged: true
     ),
     containerTemplate(
-      image: "${DOCKER_REGISTRY_DOWNLOAD_URL}/omar-builder:latest",
+      image: "${DOCKER_REGISTRY_DOWNLOAD_URL}/omar-builder:jdk11",
       name: 'builder',
       command: 'cat',
       ttyEnabled: true
@@ -39,7 +39,7 @@ podTemplate(
       stage("Checkout branch")
       {
         scmVars = checkout(scm)
-        
+
         GIT_BRANCH_NAME = scmVars.GIT_BRANCH
         BRANCH_NAME = """${sh(returnStdout: true, script: "echo ${GIT_BRANCH_NAME} | awk -F'/' '{print \$2}'").trim()}"""
         sh """
@@ -70,7 +70,7 @@ podTemplate(
             flatten: true])
           }
           load "common-variables.groovy"
-          
+
         switch (BRANCH_NAME) {
         case "master":
           TAG_NAME = VERSION
@@ -81,13 +81,13 @@ podTemplate(
           break
 
         default:
-          TAG_NAME = BRANCH_NAME
+          TAG_NAME = "${BRANCH_NAME}"
           break
         }
 
         DOCKER_IMAGE_PATH = "${DOCKER_REGISTRY_PRIVATE_UPLOAD_URL}/omar-avro"
       }
-      
+
       stage('Build') {
         container('builder') {
           sh """
@@ -98,12 +98,26 @@ podTemplate(
           archiveArtifacts "plugins/*/build/libs/*.jar"
         }
       }
-    
+
+      stage('Publish') {
+        container('builder') {
+            withCredentials([[$class          : 'UsernamePasswordMultiBinding',
+                          credentialsId   : 'ossimlabs-minion',
+                          usernameVariable: 'MAVEN_REPO_USERNAME',
+                          passwordVariable: 'MAVEN_REPO_PASSWORD']]) {
+          sh """
+          ./gradlew publish \
+              -PossimMavenProxy=${MAVEN_DOWNLOAD_URL}
+          """
+                          }
+        }
+      }
+
     stage('Docker build') {
       container('docker') {
         withDockerRegistry(credentialsId: 'dockerCredentials', url: "https://${DOCKER_REGISTRY_DOWNLOAD_URL}") {
           sh """
-            docker build -t "${DOCKER_REGISTRY_PUBLIC_UPLOAD_URL}"/omar-avro-app:${VERSION} ./docker
+            docker build -t "${DOCKER_REGISTRY_PUBLIC_UPLOAD_URL}"/omar-avro:${TAG_NAME} ./docker
           """
         }
       }
@@ -111,7 +125,7 @@ podTemplate(
         container('docker') {
           withDockerRegistry(credentialsId: 'dockerCredentials', url: "https://${DOCKER_REGISTRY_PUBLIC_UPLOAD_URL}") {
           sh """
-              docker push "${DOCKER_REGISTRY_PUBLIC_UPLOAD_URL}"/omar-avro-app:${VERSION}
+              docker push "${DOCKER_REGISTRY_PUBLIC_UPLOAD_URL}"/omar-avro:${TAG_NAME}
           """
           }
         }

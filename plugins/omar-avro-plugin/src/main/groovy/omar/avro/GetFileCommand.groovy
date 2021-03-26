@@ -8,8 +8,8 @@ class GetFileCommand implements Validateable
 {
    Integer offset
    Integer limit
-   static contraints = {
-      offset nullable: true
-      limit nullable: true
+   static constraints = {
+      offset nullable: true, min: 0
+      limit nullable: true, min: 0
    }
 }

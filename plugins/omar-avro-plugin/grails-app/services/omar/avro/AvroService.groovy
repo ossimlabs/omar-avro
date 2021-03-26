@@ -229,7 +229,7 @@ class AvroService {
                                processId:getUniqueProcessId(),
                                status:ProcessStatus.READY,
                                statusMessage:"",
-                               logs: jsonLogs.toString())
+                               logs: jsonLogs?.toString()?: "{}")
         saveFlag = true
       }
       if(saveFlag)
@@ -409,7 +409,7 @@ class AvroService {
       }
       else if(cmd.whereStatusEquals)
       {
-        def objects = AvroFile.findAll("FROM AvroFile where status = '${cmd.whereStatusEquals}'")
+        def objects = AvroFile.findAllByStatus("${cmd.whereStatusEquals}")
 
         objects.each{record->
           record.status = status
