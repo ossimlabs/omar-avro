@@ -24,7 +24,7 @@ subprojects { project ->
 
    project.ext {
      gitBranch = getCurrentGitBranch(project)
-       gitBranch = gitBranch == "HEAD" ? BRANCH_NAME : gitBranch
+       gitBranch = gitBranch == "HEAD" ? System.getenv('BRANCH_NAME') : gitBranch
        println "Aimee: ${gitBranch}"
      buildVersionTag = gitBranch == "TO2-3589" ? "RELEASE" : "SNAPSHOT"
        println "Aimee: ${buildVersionTag}"
