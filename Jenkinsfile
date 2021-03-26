@@ -1,8 +1,7 @@
 properties([
     parameters ([
         booleanParam(name: 'CLEAN_WORKSPACE', defaultValue: true, description: 'Clean the workspace at the end of the run'),
-        string(name: 'DOCKER_REGISTRY_DOWNLOAD_URL', defaultValue: 'nexus-docker-private-group.ossim.io', description: 'Repository of docker images'),
-        string(name: 'BRANCH_NAME', defaultValue: 'master', description: 'The git branch name')
+        string(name: 'DOCKER_REGISTRY_DOWNLOAD_URL', defaultValue: 'nexus-docker-private-group.ossim.io', description: 'Repository of docker images')
     ]),
     pipelineTriggers([
             [$class: "GitHubPushTrigger"]
@@ -93,7 +92,7 @@ podTemplate(
         container('builder') {
           sh """
           ./gradlew assemble \
-              -PossimMavenProxy=${MAVEN_DOWNLOAD_URL}
+              -PossimMavenProxy=${MAVEN_DOWNLOAD_URL} -PbranchName=${BRANCH_NAME}
               cp plugins/*/build/libs/*.jar docker/
           """
           archiveArtifacts "plugins/*/build/libs/*.jar"
@@ -108,7 +107,7 @@ podTemplate(
                           passwordVariable: 'MAVEN_REPO_PASSWORD']]) {
           sh """
           ./gradlew publish \
-              -PossimMavenProxy=${MAVEN_DOWNLOAD_URL}
+              -PossimMavenProxy=${MAVEN_DOWNLOAD_URL} -PbranchName=${BRANCH_NAME}
           """
                           }
         }
