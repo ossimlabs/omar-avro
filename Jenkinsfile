@@ -92,7 +92,7 @@ podTemplate(
         container('builder') {
           sh """
           ./gradlew assemble \
-              -PossimMavenProxy=${MAVEN_DOWNLOAD_URL}
+              -PossimMavenProxy=${MAVEN_DOWNLOAD_URL} -PbranchName=${BRANCH_NAME}
               cp plugins/*/build/libs/*.jar docker/
           """
           archiveArtifacts "plugins/*/build/libs/*.jar"
@@ -107,7 +107,7 @@ podTemplate(
                           passwordVariable: 'MAVEN_REPO_PASSWORD']]) {
           sh """
           ./gradlew publish \
-              -PossimMavenProxy=${MAVEN_DOWNLOAD_URL}
+              -PossimMavenProxy=${MAVEN_DOWNLOAD_URL} -PbranchName=${BRANCH_NAME}
           """
                           }
         }
